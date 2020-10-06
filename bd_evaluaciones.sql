@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-10-2020 a las 18:05:00
+-- Tiempo de generación: 06-10-2020 a las 21:27:19
 -- Versión del servidor: 10.4.13-MariaDB
 -- Versión de PHP: 7.4.8
 
@@ -107,6 +107,15 @@ CREATE TABLE `tblroles` (
   `rol` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Volcado de datos para la tabla `tblroles`
+--
+
+INSERT INTO `tblroles` (`idRol`, `rol`) VALUES
+(1, 'Administrador'),
+(2, 'Docente'),
+(3, 'Estudiante');
+
 -- --------------------------------------------------------
 
 --
@@ -117,6 +126,14 @@ CREATE TABLE `tbltipopreguntas` (
   `idTipo` int(11) NOT NULL,
   `tipo` varchar(75) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `tbltipopreguntas`
+--
+
+INSERT INTO `tbltipopreguntas` (`idTipo`, `tipo`) VALUES
+(1, 'Selección Multiple'),
+(2, 'Falso o Verdadero');
 
 -- --------------------------------------------------------
 
@@ -229,13 +246,13 @@ ALTER TABLE `tblpreguntas`
 -- AUTO_INCREMENT de la tabla `tblroles`
 --
 ALTER TABLE `tblroles`
-  MODIFY `idRol` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idRol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `tbltipopreguntas`
 --
 ALTER TABLE `tbltipopreguntas`
-  MODIFY `idTipo` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idTipo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `tblusuarios`
