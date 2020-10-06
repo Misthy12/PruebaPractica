@@ -13,10 +13,9 @@
         <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
       </li>  
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link text-dark  font-weight-bold  ">LA CUPONERA!!</a>  
+        <a href="#" class="nav-link text-dark  font-weight-bold  ">Evaluaciones KANF!!</a>
       </li>
     </ul>  
-
   </nav>  
   <!-- /.navbar -->
 
@@ -24,9 +23,9 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="#" class="brand-link">
-       <i class="brand-image img-circle mt-2 text-xl nav-icon " style="color:#fff" >LC</i>
+       <i class="brand-image img-circle mt-2 text-xl nav-icon " style="color:#fff" >KANF</i>
 
-      <span class="brand-text font-weight-light text-center text-uppercase"><b><i>La Cuponera<i></b></span>
+      <span class="brand-text font-weight-light text-center text-uppercase"><b><i>Evaluaciones!!<i></b></span>
     </a>
 
     <!-- Sidebar -->
@@ -34,16 +33,15 @@
       <!-- Sidebar user panel (optional) -->
       <a class="brand-link">
         <i class="brand-image img-circle mt-2 text-lg nav-icon fas fa-user" style="color:#fff" ></i>
-        <span class="brand-text font-weight-light text-center"><?php echo $_SESSION["nombre"]; ?></span>
+        <span class="brand-text font-weight-light text-center"><?php echo "Alguien"?></span>
+        <!--<span class="brand-text font-weight-light text-center"><?php //echo $_SESSION["nombre"]?></span> -->
       </a>
 
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
           <li class="nav-item has-treeview menu-open">
-            <?php
+          <?php
               if($_SESSION["login"]=="Cliente"){
                echo "<a href='../../Vistas/Index/IndexClientes.php' class='nav-link active'>";
               }
@@ -54,7 +52,6 @@
                 echo "<a href='../../Vistas/Index/IndexAdminLC.php' class='nav-link active'>";
               }
             ?>
-            
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard

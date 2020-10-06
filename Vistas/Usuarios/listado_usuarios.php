@@ -23,16 +23,17 @@ include("../../Share/header.php");
             <?php
             include '../../Share/conexion.php';
             $conn =OpenCon();
-            $sql="SELECT * FROM tblusuarios";
+            $sql="SELECT u.idUsuario, u.usuario, u.clave, r.rol, u.idRol FROM tblusuarios u
+                    INNER JOIN tblRoles r ON u.idRol = r.idRol";
             ?>
             <div class="card-body table-responsive">
                 <table class="table  table-hover table-striped ">
                     <thead class="bg-dark text-center">
                         <tr>
                             <th>Codigo</th>
-                            <th>Nombre</th>
-                            <th>Email</th>
+                            <th>Usuario</th>
                             <th>Password</th>
+                            <th>Rol</th>
                             <th>Opciones</th>
                         </tr>
                     </thead>
@@ -42,12 +43,11 @@ include("../../Share/header.php");
                         foreach( $conn->query($sql) as $row){
                                 echo "<tr>";
                                     echo "<td>".$row["idUsuario"]."</td>";
-                                    echo "<td>".$row["nombreUsuario"]."</td>";
-                                    echo "<td>".$row["email"]."</td>";
+                                    echo "<td>".$row["usuario"]."</td>";
                                     echo "<td>*******</td>"; 
+                                    echo "<td>".$row["rol"]."</td>";
                                     echo "<td>";
                                         echo "<a class='btn btn-sm btn-warning' href=\"../Usuarios/editar_usuario.php?codigo=". $row["idUsuario"]."\" ><i class='fas fa-edit'></i></a> \n";
-                                        //echo "<a class='btn btn-sm btn-info' href=\"../Clientes/info_cliente.php?codigo=". $row["idCliente"]."\" ><i class='fas fa-info'></i></a> \n";
                                         echo "<a class=\"btn btn-sm btn-danger\" href=\"./eliminar_usuario.php?codigo=". $row["idUsuario"]."\"><i class=\"far fa-trash-alt\"></i></a>";
                                     echo "</td>";
                                 echo "</tr>";

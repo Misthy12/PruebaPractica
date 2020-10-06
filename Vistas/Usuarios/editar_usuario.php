@@ -10,11 +10,15 @@
 
        //extraemos datos
        $id=$_GET["codigo"];
-       $sql="SELECT*FROM tblusuarios WHERE idUsuario=?";
+       $sql="SELECT u.idUsuario, u.usuario, u.clave, r.rol, u.idRol FROM tblusuarios u
+                    INNER JOIN tblRoles r ON u.idRol = r.idRol WHERE u.idUsuario = $id";
        $stmm = $conn->prepare($sql);
        $stmm->execute(array($id));
        $row=$stmm->fetchAll(PDO::FETCH_OBJ);
        foreach($row as $row){}
+
+       //consulta para roles
+       $sqlRoles="SELECT * FROM tblRoles";
      CloseCon($conn);
      }
      else
@@ -37,25 +41,29 @@
                 <form action="" method="POST">
                     <div class="row col-12 form-group">
                         <div class="col-md-6 col-sm-12">
-                            <label for="nombreCliente">Nombre</label>
-                            <input type="text" name="nombreCliente" id="nombreCliente" class="form-control" value="<?php echo $row->nombreUsuario?>" required/>
+                            <label for="nombreUsuario">Nombre Usuario</label>
+                            <input type="text" name="nombreUsuario" id="nombreUsuario" class="form-control" value="<?php echo $row->usuario?>" required/>
                             <br>
                         </div>
-                        <div class="col-md-6 col-sm-12">
-                            <label for="correo">Correo Electronico</label>
-                            <input type="email" name="correo" id="correo" class="form-control" value="<?php echo $row->email?>" required/>
-                            <br>
-                        </div>
-                    </div>
-                    <div class="row col-12 form-group">
-                        <div class="col-md-6 col-sm-12" hidden>
+                        
+                        <div class="col-md-6 col-sm-12" >
                             <label for="clave">Contraseña</label>
                             <input type="text" name="clave" id="clave" class="form-control" value="<?php echo $row->password?>" required/>
                             <br>
                         </div>
-                        <div class="col-md-6 col-sm-12" hidden>
-                            <label for="estado">Estado</label>
-                            <input type="text" name="estado" id="estado" class="form-control" value="<?php echo $row->estado?>" readonly/>
+                    </div>
+                    <div class="row col-12 form-group">
+                        <div class="col-md-12 col-sm-12">
+                        
+                            <label for="rol">Rol</label>
+                            <select name="rol" id="rol" type="text" class="form-control"  required>
+                            <option  value="<?php echo $row->idRol?>" ><?php $row->rol?></option>
+                                <?php   
+                                    foreach ($conn->query($sqlRoles) as $valor) {
+                                        echo "<option value='".$valor["idRol"]."'>".$valor["rol"]."</option>";
+                                    }
+                                ?>
+                            </select>
                             <br>
                         </div>
                     </div>
@@ -84,9 +92,9 @@
                             die("No se ha podido conectar con la base de datos :'( ");
                         }
 
-                        if($_POST["nombreUsuario"]!="" && $_POST["correo"]!=""){
+                        if($_POST["nombreUsuario"]!="" && $_POST["clave"]!=""){
 
-                            $sql = "UPDATE tblusuarios SET nombreUsuario='".$_POST["nombreUsuario"]."', email='".$_POST["correo"]."', estado='".$_POST["estado"]."' WHERE idUsuario='".$_POST["id"]."'";
+                            $sql = "UPDATE tblusuarios SET usuario='".$_POST["nombreUsuario"]."', clave='".$_POST["clave"]."', idRol='".$_POST["rol"]."' WHERE idUsuario='".$_POST["id"]."'";
                             $codigo=$_POST["id"];        
                             $count = $conn->exec($sql);
                             if($count > 0){
