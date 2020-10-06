@@ -39,7 +39,7 @@ session_start();
       <a class="nav-link" id="docente-tab" data-toggle="tab" href="#docente" role="tab" aria-controls="docente" aria-selected="false">Docente</a>
     </li>
     <li class="nav-item" role="presentation">
-      <a class="nav-link" id="admin-tab" data-toggle="tab" href="#admin" role="tab" aria-controls="admin" aria-selected="false">Administrador</a>
+      <a class="nav-link" id="admin-tab" data-toggle="tab" href="#admin" role="tab" aria-controls="admin" aria-selected="false">Admin</a>
     </li>
   </ul>
   <div class="tab-content" id="myTabContent">
@@ -168,7 +168,7 @@ if (isset($_POST['btnEstudiante'])) { //comprobamos si se envían variables desd
   $stmt->execute();
   $count=$stmt->rowCount();
   $data=$stmt->fetch(PDO::FETCH_OBJ);
-  if($count>0 && password_verify($clave,$data->password)&& $data->idRol=3 ){
+  if($count>0 && password_verify($clave,$data->clave)&& $data->idRol=3 ){
     $alumno= $data->nombreAlumno."".$data->apellidoAlumno;
     //variables allevar
     $_SESSION['id']=$data->idAlumno; // Storing user session value
@@ -227,16 +227,17 @@ else if (isset($_POST['btnAdmin'])) { //comprobamos si se envían variables desd
   $email=$_POST["email"]; //Capturamos lo digitado por el usuario en la caja de texto de nombre usuario
   $clave=$_POST["password"];//clave encriptada
   //$hash_password= hash('sha256', $password); //Password encryption 
-  $stmt = $conn->prepare("SELECT * FROM tblUsuarios WHERE u.usuario=:email"); 
+  $stmt = $conn->prepare("SELECT * FROM tblUsuarios WHERE usuario=:email"); 
   $stmt->bindParam("email", $email,PDO::PARAM_STR) ;
   //$stmt->bindParam("clave", $clave,PDO::PARAM_STR) ;
   $stmt->execute();
   $count=$stmt->rowCount();
   $data=$stmt->fetch(PDO::FETCH_OBJ);
-  if($count>0 && password_verify($clave,$data->password) && $data->idRol=1 ){
+  if($count>0 && password_verify($clave,$data->clave) && $data->idRol=1 ){
     //variables allevar
+    $nombre=$data->usuario;
     $_SESSION['id']=$data->idUsuario; // Storing user session value
-    $_SESSION["nombre"]=$data->nombreUsuario;
+    $_SESSION['nombre']=$nombre;
     $_SESSION["login"]="Admin";//identificar la sesion
     print "<script> window.location = './Vistas/Index/IndexAdminLC.php';</script>";
   }

@@ -2,7 +2,7 @@
 //CONECCION PARA PDO
 function OpenCon(){
     /*Conexion a una Base de Datos MySql*/
-    $dsn = 'mysql:dbname=db_evaluaciones;host=127.0.0.1';
+    $dsn = 'mysql:dbname=bd_evaluaciones;host=127.0.0.1';
     $usuario = 'root';
     $contrasena = '';
     try{
