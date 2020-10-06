@@ -5,8 +5,14 @@
   </div>
     <footer class="main-footer">
          <details>
-            <summary><strong>Copyright &copy; 2020 <a href="http://adminlte.io">Alondra Nestor Keyssi Fidel</a>.</strong></summary>
-                <!-- <p><a href="mailto:nancycolatoam@gmail.com">nancycolatoam@gmail.com</a></p> -->
+            <summary><strong>Copyright &copy; 2020 <a href="http://adminlte.io">KANF!!</a>.</strong></summary>
+                <p>
+                <a href="mailto:nancycolatoam@gmail.com">Nancy Alondra Colato Martínez</a>
+                <a href="mailto:matinezfidel@gmail.com">Fidel Edgardo García Martínez</a>
+                <a href="mailto:keyssiesme@gmail.com">Keyssi Esmaralda Gochez Mejía</a>
+                <a href="mailto:rivasnestor95@gmail.com">Nestor Stanley Rivas Díaz</a>
+                </p> 
+                <hr>
                 Todos los derechos reservados.
                 <div class="float-right d-none d-sm-inline-block">
                 <b>Version</b> Beta
@@ -26,7 +32,6 @@
     <script src="../../Tools/lib/jquery/dist/jquery.min.js"></script>
     <script src="../../Tools/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <!-- jQuery UI 1.11.4 -->
-    <!-- <script src="../../Tools/lib/jquery-ui/jquery-ui.min.js"></script> -->
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
     <script src="../../Tools/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
 
