@@ -63,17 +63,16 @@
                     </div>
 
                     <div class="row col-12 form-group">
-                        <div class="col-md-4 col-sm-12" >
+                       
                             <input type="hidden" name="id" id="id" class="form-control" value="<?php echo $row->id?>" required/>
-                            <input type="Submit" value="Guardar" name="submit" class="btn btn-success btn-block col-4">
-                        </div>
-                        <div class="col-md-4 col-sm-12" >
+                            <input type="Submit" value="Guardar" name="submit" class="btn btn-success btn-block col-md-4 col-sm-12">
+                       
                             <?php
                                 if($_SESSION["login"] ="Admin"){
-                                    echo "<a href='../Alumnos/listado_alumnos.php' class='btn btn-warning btn-block col-4'>Regresar</a>";
+                                    echo "<a href='../Alumnos/listado_alumnos.php' class='btn btn-warning btn-block col-md-4 col-sm-12'>Regresar</a>";
                                 }
                             ?>
-                        </div>
+                        
                     </div>
                     <br>
                 </form>
