@@ -59,27 +59,27 @@
             </a>
           </li>
           <?php
-              if($_SESSION["login"]=="Cliente"){?>
+              if($_SESSION["login"]=="Alumno"){?>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-tag"></i>
               <p>
-                Cupones
+                
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="../../Vistas/Clientes/misCupones.php" class="nav-link">
+                <a href="../../Vistas/Alumnos/misEvaluaciones.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Mis compras</p>
+                  <p>Mis Evaluaciones</p>
                 </a>
               </li>
             </ul>
           </li>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-users"></i>
+              <i class="nav-icon fas fa-id-card"></i>
               <p>
               <?php echo $_SESSION["nombre"]; ?>
                 <i class="fas fa-angle-left right"></i>
@@ -87,7 +87,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="../../Vistas/Clientes/editar_cliente.php?codigo=<?php echo$_SESSION['id']?>" class="nav-link">
+                <a href="../../Vistas/Alumnos/editar_alumno.php?codigo=<?php echo$_SESSION['id']?>" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Mis Datos Personales</p>
                 </a>
@@ -96,42 +96,35 @@
           </li>
           <?php
               }
-              if($_SESSION["login"]=="Sucursal"||$_SESSION["login"]=="Admin" ){?>
+              if($_SESSION["login"]=="Docente"||$_SESSION["login"]=="Admin" ){?>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tag"></i>
+              <i class="nav-icon fas fa-folder"></i>
               <p>
-                Ofertas
+                Evaluaciones
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="../../Vistas/Ofertas/listado_ofertas.php" class="nav-link">
+                <a href="../../Vistas/Evaluaciones/listado_evaluaciones.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Ofertas</p>
+                  <p>Evaluaciones</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="../../Vistas/Ofertas/agregar_oferta.php" class="nav-link">
+                <a href="../../Vistas/Evaluaciones/agregar_evaluacion.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Agregar Oferta</p>
-                </a>
-              </li>
-
-              <li class="nav-item">
-                <a href="../../Vistas/Ofertas/canjear_oferta.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Canjear Oferta</p>
+                  <p>Agregar Evaluación</p>
                 </a>
               </li>
             </ul>
           </li>
               <?php }
-              if($_SESSION["login"]=="Sucursal"){?>
+              if($_SESSION["login"]=="Docente"){?>
               <li class="nav-item has-treeview">
                         <a href="#" class="nav-link">
-                          <i class="nav-icon fas fa-users"></i>
+                          <i class="nav-icon fas fa-id-card"></i>
                           <p>
                           <?php echo $_SESSION["nombre"]; ?>
                             <i class="fas fa-angle-left right"></i>
@@ -139,7 +132,7 @@
                         </a>
                         <ul class="nav nav-treeview">
                           <li class="nav-item">
-                            <a href="../../Vistas/Sucursales/editar_sucursal.php?codigo=<?php echo$_SESSION['id']?>" class="nav-link">
+                            <a href="../../Vistas/Docentes/editar_docente.php?codigo=<?php echo$_SESSION['id']?>" class="nav-link">
                               <i class="far fa-circle nav-icon"></i>
                               <p>Mis Datos</p>
                             </a>
@@ -151,49 +144,10 @@
               }
                         
               if($_SESSION["login"]=="Admin"){?>    
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-building"></i>
-              <p>
-                Evaluaciones
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="../../Vistas/Evaluaciones/listado_evaluaciones.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Listado Evaluaciones</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="../../Vistas/Evaluaciones/agregar_evaluacion.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Crear Evaluacion</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-users"></i>
-              <p>
-                Clientes
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="../../Vistas/Clientes/listado_clientes.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Listado Clientes</p>
-                </a>
-              </li>
-            </ul>
-          </li>
+          
           <li class="nav-item has-treeview">
              <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-edit"></i>
+              <i class="nav-icon fas fa-users"></i>
               <p>
                 Usuarios
                 <i class="fas fa-angle-left right"></i>
@@ -214,18 +168,53 @@
               </li>
             </ul>
           </li>         
-          </li>
-     
-        
           <li class="nav-item has-treeview">
-            <a href="../../Vistas/Rubros/listado_rubros.php" class="nav-link">
-              <i class="nav-icon fas fa-tasks"></i>
+             <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-user-secret"></i>
               <p>
-                Rubros
-
+                Docentes
+                <i class="fas fa-angle-left right"></i>
               </p>
             </a>
-          </li> 
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="../../Vistas/Docentes/listado_docentes.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p> Listado Docentes</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="../../Vistas/Docentes/agregar_docente.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Agregar Docente</p>
+                </a>
+              </li>
+            </ul>
+          </li>         
+          <li class="nav-item has-treeview">
+             <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-child"></i>
+              <p>
+                Alumnos
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="../../Vistas/Alumnos/listado_alumnos.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p> Listado Alumnos</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="../../Vistas/Alumnos/agregar_alumno.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Agregar Alumnos</p>
+                </a>
+              </li>
+            </ul>
+          </li>         
+          </li>
           <?php }?> 
           <li class="nav-item has-treeview">
             <a href="../../Share/salir.php" class="nav-link">
