@@ -3,14 +3,14 @@
     </section>
     <!-- /.content -->
   </div>
-    <footer class="main-footer">
+    <footer class="main-footer text-center">
          <details>
             <summary><strong>Copyright &copy; 2020 <a href="http://adminlte.io">KANF!!</a>.</strong></summary>
                 <p>
-                <a href="mailto:nancycolatoam@gmail.com">Nancy Alondra Colato Martínez</a>
-                <a href="mailto:matinezfidel@gmail.com">Fidel Edgardo García Martínez</a>
-                <a href="mailto:keyssiesme@gmail.com">Keyssi Esmaralda Gochez Mejía</a>
-                <a href="mailto:rivasnestor95@gmail.com">Nestor Stanley Rivas Díaz</a>
+                <a href="mailto:nancycolatoam@gmail.com">Nancy Alondra Colato Martínez</a><br>
+                <a href="mailto:matinezfidel@gmail.com">Fidel Edgardo García Martínez</a><br>
+                <a href="mailto:keyssiesme@gmail.com">Keyssi Esmaralda Gochez Mejía</a><br>
+                <a href="mailto:rivasnestor95@gmail.com">Nestor Stanley Rivas Díaz</a><br>
                 </p> 
                 <hr>
                 Todos los derechos reservados.
