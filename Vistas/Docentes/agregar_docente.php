@@ -27,10 +27,17 @@ require '../../Share/PhpMailer/src/SMTP.php';
                             <br>
                         </div>
                     </div>
-                    <div class="col-md-12 col-sm-12">
-                        <label for="tel">Telefono</label>
-                        <input type="text" name="tel" id="tel" class="form-control" require>
-                        <br>
+                    <div class="row col-12 form-group">
+                        <div class="col-md-6 col-sm-12">
+                            <label for="tel">Telefono</label>
+                            <input type="text" name="tel" id="tel" class="form-control" require>
+                            <br>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <label for="correo">Correo</label>
+                            <input type="email" name="correo" id="correo" class="form-control" require>
+                            <br>
+                        </div>
                     </div>
                     <div class="">
                     <hr>
@@ -72,7 +79,7 @@ require '../../Share/PhpMailer/src/SMTP.php';
                             die("No se ha podido conectar con la base de datos :(");
                         }
 
-                        if($_POST["nombre"]!="" && $_POST["apellido"]!="" && $_POST["tel"]!="" && $_POST["nombreUsuario"]!="" && $_POST["clave"]!=""){
+                        if($_POST["nombre"]!="" && $_POST["apellido"]!="" && $_POST["tel"]!="" && $_POST["nombreUsuario"]!="" && $_POST["clave"]!=""&& $_POST["correo"]!=""){
                             $idUser="";
                             //envia el usuario
                             $clave=password_hash($_POST["clave"], PASSWORD_DEFAULT);//clave encriptada
@@ -83,8 +90,8 @@ require '../../Share/PhpMailer/src/SMTP.php';
                             //echo $idUser;
 
                             //envia el docente
-                            $sql ="INSERT INTO tblDocentes(docenteNombre, docenteApellido, telefono, idUsuario)
-                                    VALUES ('".$_POST["nombre"]."','".$_POST["apellido"]."','".$_POST["tel"]."','".$idUser."')";
+                            $sql ="INSERT INTO tblDocentes(docenteNombre, docenteApellido, telefono, idUsuario, correo)
+                                    VALUES ('".$_POST["nombre"]."','".$_POST["apellido"]."','".$_POST["tel"]."','".$idUser."','".$_POST["correo"]."')";
                             $count += $conn->exec($sql);
                             if($count > 1){
                                 Print"<script>
@@ -98,7 +105,7 @@ require '../../Share/PhpMailer/src/SMTP.php';
                                 //envio de correo
                                 $mail=new PHPMailer();
                                 $mail->CharSet = 'UTF-8';
-                                $body = "".$_POST["nombre"]." ".$_POST["apellido"]." Su Ingrese a nuestro portal con el usuario: ".$_POST["nombreUsuario"]." y contraseña: ".$_POST["clave"]." Gracias por preferirnos!";
+                                $body = "".$_POST["nombre"]." ".$_POST["apellido"]." Sus Credenciales de Ingreso a nuestro portal con el usuario: ".$_POST["nombreUsuario"]." y contraseña: ".$_POST["clave"]." Gracias por preferirnos!";
                                 $mail->IsSMTP();
                                 $mail->Host       = 'smtp.gmail.com';
                                 $mail->SMTPSecure = 'tls';

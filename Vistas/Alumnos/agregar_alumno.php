@@ -106,7 +106,7 @@ require '../../Share/PhpMailer/src/SMTP.php';
                                 //envio de correo
                                 $mail=new PHPMailer();
                                 $mail->CharSet = 'UTF-8';
-                                $body = "".$_POST["nombre"]." ".$_POST["apellido"]." Su Ingrese a nuestro portal con el usuario: ".$_POST["nombreUsuario"]." y contraseña: ".$_POST["clave"]." Gracias por preferirnos!";
+                                $body = "".$_POST["nombre"]." ".$_POST["apellido"].". Sus Credenciales de Ingreso a nuestro portal con el usuario: ".$_POST["nombreUsuario"]." y contraseña: ".$_POST["clave"]." Gracias por preferirnos!";
                                 $mail->IsSMTP();
                                 $mail->Host       = 'smtp.gmail.com';
                                 $mail->SMTPSecure = 'tls';
