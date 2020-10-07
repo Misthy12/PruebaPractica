@@ -154,7 +154,50 @@ CloseCon($conn);
 <div class="card-footer">
     <!-- ENVIO DE DATOS -->
     <?php
+    if (isset($_POST["submit"])) {
 
+
+        //verificar la conexion
+        if ($conn == null) {
+            die("No se ha podido conectar con la base de datos :(");
+        }
+
+        if ($_POST["codigo"] != "" && $_POST["fecha"] != "" && $_POST["docente"] != "") {
+
+            $sqlEvaluacion = "INSERT INTO tblEvaluaciones(codigo, fecha, idDocente) VALUES ('" . $_POST["codigo"] . "','" . $_POST["fecha"] . "','" . $_POST["docente"] . "')";
+            $count = $conn->exec($sqlEvaluacion);
+            $idEval = $conn->lastInsertId(); //extrae el id del ultimo registro insertado en la bd
+
+
+
+            if ($count > 0) {
+                print "<script>
+                                Swal.fire({
+                                  icon: 'success',
+                                  title: 'Hecho!',
+                                  text: 'Se Ha registrado el Usuario!',
+                                })
+                                </script>";
+            } else {
+                print "<script>
+                                Swal.fire({
+                                  icon: 'error',
+                                  title: 'OPPS!',
+                                  text: 'No se Ha realizado el Registro!',
+                                })
+                                </script>";
+            }
+            CloseCon($conn);
+        } else {
+            echo "<div class=\"alert alert-danger \" role=\"alert\" >";
+            echo "Aun faltan campos por llenar!! :<";
+            echo "</div>";
+        }
+    }
+    echo "
+            </div>
+        </div>
+    </div>"; //fin del div card-footer, CARD, COL
 
     //incluimos footer
     include "../../Share/footer.php";
@@ -173,53 +216,3 @@ CloseCon($conn);
             });
         });
     </script>
-                <?php
-                    if(isset($_POST["submit"])){
-                       
-
-                        //verificar la conexion
-                        if ($conn == null){
-                            die("No se ha podido conectar con la base de datos :(");
-                        }
-
-                        if($_POST["codigo"]!="" && $_POST["fecha"]!="" && $_POST["docente"]!=""){
-                           
-                            $sqlEvaluacion = "INSERT INTO tblEvaluaciones(codigo, fecha, idDocente) VALUES ('".$_POST["codigo"]."','".$_POST["fecha"]."','".$_POST["docente"]."')";
-                            $count = $conn->exec($sqlEvaluacion);
-                            $idEval = $conn->lastInsertId();//extrae el id del ultimo registro insertado en la bd
-                            
-                            
-
-                            if($count > 0){
-                                Print"<script>
-                                Swal.fire({
-                                  icon: 'success',
-                                  title: 'Hecho!',
-                                  text: 'Se Ha registrado el Usuario!',
-                                })
-                                </script>";
-                            }else{
-                                Print"<script>
-                                Swal.fire({
-                                  icon: 'error',
-                                  title: 'OPPS!',
-                                  text: 'No se Ha realizado el Registro!',
-                                })
-                                </script>";
-                            }
-                            CloseCon($conn);
-                        }
-                        else{
-                            echo "<div class=\"alert alert-danger \" role=\"alert\" >";
-                                echo "Aun faltan campos por llenar!! :<";
-                                echo "</div>";
-                        }
-                    }
-                echo "
-            </div>
-        </div>
-    </div>";//fin del div card-footer, CARD, COL
-
-        //incluimos footer
-        include "../../Share/footer.php";
-        ?>
