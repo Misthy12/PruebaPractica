@@ -8,8 +8,8 @@
 
         //extraemos datos
         $id=$_GET["codigo"];
-        $stmm = $conn->prepare("SELECT d.idDocente, d.docenteNombre as nombre, d.docenteApellido as apellido, d.telefono, u.usuario, u.clave, d.idUsuario FROM tblDocentes d
-        INNER JOIN tblUsuarios u ON d.idUsuario = u.idUsuario WHERE d.idDocente=$id");
+        $stmm = $conn->prepare("SELECT a.idAlumno as id, a.alumnoNombre as nombre, a.alumnoApellido as apellido, a.fechaNacimiento as fecha, u.usuario, u.clave, a.idUsuario FROM tblAlumnos a
+        INNER JOIN tblUsuarios u ON a.idUsuario = u.idUsuario WHERE a.idAlumno=$id");
         $stmm->execute(array($id));
         $row=$stmm->fetchAll(PDO::FETCH_OBJ);
         foreach($row as $row){}
@@ -26,7 +26,7 @@
      
 ?>
 
-   <title>Docentes</title>
+   <title>Alumnos</title>
 
    <div class="col-md-8 offset-md-2 col-sm-12">
        <div class="card">
@@ -37,21 +37,21 @@
                 <form action="" method="POST">
                     <div class="row col-12 form-group">
                         <div class="col-md-6 col-sm-12">
-                            <label for="nombre">Nombre Docente</label>
+                            <label for="nombre">Nombre Alumno</label>
                             <input type="text" name="nombre" id="nombre" class="form-control" value="<?php echo $row->nombre?>" required/>
                             <br>
                         </div>
                         
                         <div class="col-md-6 col-sm-12" >
-                            <label for="apellido">Apellido Docente</label>
+                            <label for="apellido">Apellido Alumno</label>
                             <input type="text" name="apellido" id="apellido" class="form-control" value="<?php echo $row->apellido?>" required/>
                             <br>
                         </div>
                     </div>
                     <div class="row col-12 form-group">
                         <div class="col-md-6 col-sm-12">
-                            <label for="tel">Telefono</label>
-                            <input type="tel" name="tel" id="tel" class="form-control" value="<?php echo $row->telefono?>" required/>
+                            <label for="fecha">Fecha Nacimiento</label>
+                            <input type="fecha" name="fecha" id="fecha" class="form-control" value="<?php echo $row->fecha?>" required/>
                             <br>
                         </div>
                         
@@ -91,9 +91,9 @@
                             die("No se ha podido conectar con la base de datos :'( ");
                         }
 
-                        if($_POST["nombre"]!="" && $_POST["apellido"]!="" && $_POST["tel"]!="" ){
+                        if($_POST["nombre"]!="" && $_POST["apellido"]!="" && $_POST["fecha"]!="" ){
                            
-                            $sql = "UPDATE tblDocentes SET docenteNombre='".$_POST["nombre"]."', docenteApellido='".$_POST["apellido"]."', telefono='".$_POST["tel"]."' WHERE id='".$_POST["id"]."'";
+                            $sql = "UPDATE tblDocentes SET alumnoNombre='".$_POST["nombre"]."', alumnoApellido='".$_POST["apellido"]."', fechaNacimiento='".$_POST["fecha"]."' WHERE id='".$_POST["id"]."'";
                             $codigo=$_POST["id"];        
                             $count = $conn->exec($sql);
                             if($count > 0){
