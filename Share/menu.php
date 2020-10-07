@@ -33,7 +33,7 @@
       <!-- Sidebar user panel (optional) -->
       <a class="brand-link">
         <i class="brand-image img-circle mt-2 text-lg nav-icon fas fa-user" style="color:#fff" ></i>
-        <span class="brand-text font-weight-light text-center"><?php echo "Alguien"?></span>
+        <span class="brand-text font-weight-light text-center"><?php echo $_SESSION["nombre"]?></span>
         <!--<span class="brand-text font-weight-light text-center"><?php //echo $_SESSION["nombre"]?></span> -->
       </a>
 
@@ -42,11 +42,11 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-item has-treeview menu-open">
           <?php
-              if($_SESSION["login"]=="Cliente"){
-               echo "<a href='../../Vistas/Index/IndexClientes.php' class='nav-link active'>";
+              if($_SESSION["login"]=="Alumno"){
+               echo "<a href='../../Vistas/Index/IndexAlumno.php' class='nav-link active'>";
               }
-              else if($_SESSION["login"]=="Sucursal"){
-                echo "<a href='../../Vistas/Index/IndexEmpresas.php' class='nav-link active'>";
+              else if($_SESSION["login"]=="Docente"){
+                echo "<a href='../../Vistas/Index/IndexDocente.php' class='nav-link active'>";
               }
               else{
                 echo "<a href='../../Vistas/Index/IndexAdminLC.php' class='nav-link active'>";

@@ -1,6 +1,6 @@
     <?php 
       include "../../Share/header.php";
-      // include "../../Share/funcionesAdminLC.php";
+      include "../../Share/funciones.php";
     ?>
 
     <!-- Main content -->
@@ -12,7 +12,7 @@
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
-                <h3><?php //echo numeroCupones(); ?></h3>
+                <h3><?php echo numeroUsuarios(); ?></h3>
 
                 <p>Usuarios</p>
               </div>
@@ -27,7 +27,7 @@
             <!-- small box -->
             <div class="small-box bg-success">
               <div class="inner">
-                <h3><?php //if(numeroEmpresas()!=0){echo (numeroEmpresas()/100);} else{ echo 0;} ?><sup style="font-size: 20px">%</sup></h3>
+                <h3><?php echo numeroEvaluaciones() ?><sup style="font-size: 20px">%</sup></h3>
 
                 <p>Evaluaciones</p>
               </div>
@@ -42,7 +42,7 @@
             <!-- small box -->
             <div class="small-box bg-primary">
               <div class="inner">
-                <h3> <?php //echo numeroSucursales(); ?> </h3>
+                <h3> <?php echo numeroDocentes(); ?> </h3>
 
                 <p>Docentes</p>
               </div>
@@ -57,7 +57,7 @@
             <!-- small box -->
             <div class="small-box bg-danger">
               <div class="inner">
-                <h3> <?php //echo numeroClientes()?> </h3>
+                <h3> <?php echo numeroAlumnos()?> </h3>
 
                 <p>Alumnos</p>
               </div>
