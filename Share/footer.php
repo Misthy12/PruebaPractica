@@ -45,6 +45,6 @@
     <script src="../../Tools/dist/js/pages/dashboard.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="../../Tools/dist/js/demo.js"></script>
-    
+
 </body>
 </html>

@@ -155,21 +155,21 @@
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-building"></i>
               <p>
-                Empresas
+                Evaluaciones
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="../../Vistas/Empresas/listado_empresas.php" class="nav-link">
+                <a href="../../Vistas/Evaluaciones/listado_evaluaciones.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Listado Empresas</p>
+                  <p>Listado Evaluaciones</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="../../Vistas/Sucursales/listado_sucursales.php" class="nav-link">
+                <a href="../../Vistas/Evaluaciones/agregar_evaluacion.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Listado Sucursales</p>
+                  <p>Crear Evaluacion</p>
                 </a>
               </li>
             </ul>

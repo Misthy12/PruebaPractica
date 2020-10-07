@@ -1,118 +1,178 @@
 <?php
 include "../../Share/header.php";
 include "../../Share/conexion.php";
-//consulta para Docentes
-$conn=OpenCon();
-$sqlDocentes="SELECT * FROM tblDocentes";
-//consulta para eval
-// realizamos la consulta para obtener el mayor id insertado
-$sqlEval = "SELECT MAX(idEvaluacion) AS id FROM tblEvaluaciones";
-$query = $conn->prepare($sqlEval);
-$query->execute();
-$row = $query->fetch();
-$idEval=$row['id']+1;
-//consulta para pregunta
-// realizamos la consulta para obtener el mayor id insertado
-$sqlP = "SELECT MAX(idPregunta) AS id FROM tblPreguntas";
-$queryP = $conn->prepare($sqlP);
-$queryP->execute();
-$rowP = $queryP->fetch();
-$idPreg=$rowP['id'];
+//consulta para roles
+$conn = OpenCon();
+$sqlDocentes = "SELECT * FROM tbldocentes";
+$sqlTipo = "SELECT * FROM tbltipopreguntas";
 CloseCon($conn);
 ?>
-
 <title>Evaluaciones</title>
-
-    <div class="col-md-8 offset-md-2 col-sm-12">
-        <div class="card">
+<div class="col-sm-12">
+    <div class="card">
         <div class="card-header bg-success">
-                <h4 class="text-center">Agregar Evaluacion</h4>
-            </div>
-            <div class="card-body">
-                <form action="" method="POST" id="form">
-                    <div class="">
-                        <hr>
-                        <h4 class="text-center font-weight-bold">Informacion Evaluacion</h4>
-                        <hr>
+            <h4 class="text-center">Agregar Evaluación</h4>
+        </div>
+        <div class="card-body">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-header bg-primary">
+                        <h4 class="text-center">Evaluación</h4>
                     </div>
-                    <div class="row col-12 form-group">
-                        <div class="col-md-3 col-sm-12">
-                            <label for="codigo">Codigo Evaluacion</label>
-                            <input type="text" name="codigo" id="codigo" class="form-control" required/>
-                            <br>
-                        </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="form-group col-4">
+                                <label class="control-label col-md-3">Codigo</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" type="text" name="codigo" id="codigo" value="" placeholder="Ingrese un Codigo" required />
+                                </div>
+                            </div>
+                            <div class="form-group col-4">
+                                <label class="control-label col-md-3">Fecha</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" type="date" name="Fecha" id="Fecha" value="" />
+                                </div>
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="rol" class="control-label col-md-3">Docente</label>
+                                <div class="col-md-9">
+                                    <select name="idDocente" id="idDocente" type="text" class="form-control" required>
+                                        <?php
+                                        foreach ($conn->query($sqlDocentes) as $valord) {
+                                            echo "<option value='" . $valord["idDocente"] . "'>" . $valord["docenteNombre"] . "</option>";
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group col-12">
+                                <label class="control-label col-md-3">Indicaciones</label>
+                                <textarea class="form-control" id="Indicaciones" name="Indicacion" rows="2"></textarea>
 
-                        <div class="col-md-3 col-sm-12">
-                            <label for="fecha">Fecha Activa</label>
-                            <input type="date" name="fecha" id="fecha" class="form-control" require>
-                            <br>
+                            </div>
+                            <div class="row"></div>
                         </div>
-                        <div class="col-md-6 col-sm-12">
-                            <label for="docente">Docente</label>
-                            <select name="docente" id="docente" type="text" class="form-control"  required>
-                                <?php   
-                                    foreach ($conn->query($sqlDocentes) as $valor) {
-                                        echo "<option value='".$valor["idDocente"]."'>".$valor["docenteNombre"]." ".$valor["docenteApellido"]."</option>";
-                                    }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header bg-primary">
+                    <h4 class="text-center">Preguntas</h4>
+                    <button title="Agregar Pregunta" class="btn btn-info" name="btnAgregar" id="btnAgregar"><i class="fa fa-plus"></i></button>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="form-group col-3">
+                            <label class="control-label col-md-3" for="idTipo">Tipo</label>
+                            <select name="idTipo" id="idTipo" type="text" class="form-control" required>
+                                <option value="">.:Seleccione:.</option>
+                                <?php
+                                foreach ($conn->query($sqlTipo) as $valorp) {
+                                    echo "<option value='" . $valorp["idTipo"] . "'>" . $valorp["tipo"] . "</option>";
+                                }
                                 ?>
                             </select>
-                            <br>
                         </div>
-                    </div>
-                    <div class="">
-                        <hr>
-                        <h4 class="text-center font-weight-bold">Preguntas</h4>
-                        <hr>
-                    </div>
-                    <div class="row col-12 form-group">
-                        <div class="col-md-6 col-sm-12">
-                            <label for="cant">Cantidad de Preguntas</label>
-                            <input type="email" name="cant" id="cant" class="form-control" require>
-                            <br>
-                        </div>
-                        <div  class="col-md-6 col-sm-12">
-                        <br>
-                        <input type="button" value="Crear" id="btnPreguntas" class="btn btn-primary" >
-                        </div>
-                    </div>
-                    <div class="row col-12 form-group">
-                        <?php
-                            // //tipo de pregunta
-                            // $sqlTP="SELECT * FROM tbltipopreguntas";
+                        <div class="form-group col-9">
+                            <label class="control-label col-md-3" for="pregunta">Pregunta</label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="text" name="pregunta" id="pregunta" value="" placeholder="Ingrese la pregunta" required />
+                            </div>
 
-                            // //repeticion
-                            // if(isset($_POST["btnPreguntas"])){
-                            //     for($i=1;$i<$_POST["cant"];$i++){
-                            //         $idPr=$idPreg+$i;
-                            //         echo "<input type='text' name='idEval' id='idVal' class='form-control col-3' value='$idEval' require>";
-                            //         echo "<input type='text' name='idPregu' id='idPregu' class='form-control col-3' value='$idPr' require>";
-                            //         echo "<select name='tipo' id='tipo' type='text' class='form-control col-6' required>";
-                            //         foreach ($conn->query($sqlTP) as $valor) {
-                            //             echo "<option value='".$valor["idTipo"]."'>".$valor["tipo"]."</option>";
-                            //         }
-                            //         echo "<input type='button' name='btnPreg' id='btnPreg' class='form-control btn btn-primary col-12' value='Enviar' >";
-                            //         echo "</select>";
-                            //         if(isset($_POST["btnPreg"])){
-                            //             if($_POST["tipo"]="1"){
-                            //                 echo "<input type='number' name='pondercion' id='pondercion' class='form-control col-3' step='0.1' placeholder='Ponderacion' require>";
-                            //                 echo "<select type='text' name='rCorrecta' id='rCorrecta' class='form-control col-6' placeholder='Respuesta Correcta' require>";
-                            //                 echo "<option value='V'>Vedadero</option>";
-                            //                 echo "<option value='F'>Falso</option>";
-                            //                 echo "</select>";
-                            //              }
-                            //         }
-                                    
-                            //     }
-                            // };
-                        ?>
+                        </div>
                     </div>
+                </div>
 
-                    </form>
+                <div id="FormTrueFalse" style="display: none;">
+                    <label for="">Repuesta</label>
+                    <select name="Respuesta" id="Respuesta">
+                        <option value="">.:Seleccione:.</option>
+                        <option value="1">Verdadero</option>
+                        <option value="0">Falso</option>
+                    </select>
+                </div>
+                <div id="FormMultiple" style="display: none;>
+                                <label for=" RespuestaV">Repuesta</label>
+                    <input class="form-control" type="text" name="RespuestaV" id="RespuestaV" value="" placeholder="Ingrese la Respuesta Correcta" />
+                    <input class="form-control" type="text" name="RespuestaF1" id="RespuestaF1" value="" placeholder="Ingrese la Respuesta Incorrecta" />
+                    <input class="form-control" type="text" name="RespuestaF2" id="RespuestaF2" value="" placeholder="Ingrese la Respuesta Incorrecta" />
+                    <input class="form-control" type="text" name="RespuestaF3" id="RespuestaF3" value="" placeholder="Ingrese la Respuesta Incorrecta" />
+                </div>
+
             </div>
+        </div>
+    </div>
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-header bg-primary">
+                <h4 class="text-center">Detalles Evaluacion</h4>
+                <div class=" col-sm-offset-8 col-sm-4" align="right">
+                    <button title="Guardar Evaluacion" class="btn btn-success" name="btnGuardar" id="btnGuardar"> <i class="fas fa-save"></i></button>
+                    <a href="listado_evaluaciones.php" title="Cancelar" class="btn btn-default"><i class="fas fa-times"></i></a>
+                </div>
+            </div>
+            <div class="card-body" style="overflow-x:scroll">
+                <!-- Date -->
+                <table id="TablaCL" class="table table-bordered table-responsive">
+                    <thead>
+                        <tr>
+                            <th>N</th>
+                            <th>Tipo</th>
+                            <th>Pregunta</th>
+                            <th>Respuesta</th>
+                            <th hidden>Incorrecta1</th>
+                            <th hidden>Incorrecta2</th>
+                            <th hidden>Incorrecta3</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="fila">
 
-            <div class="card-footer">
-   
-                <!-- ENVIO DE DATOS -->
+                        <tr hidden>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+
+                        </tr>
+                    </tbody>
+
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<div class="card-footer">
+    <!-- ENVIO DE DATOS -->
+    <?php
+
+
+    //incluimos footer
+    include "../../Share/footer.php";
+    ?>
+    <script>
+        $(document).ready(function() {
+            $("#idTipo").change(function() {
+                var tipo = $("#idTipo").val();
+                if (tipo == 2) {
+                    $("#FormTrueFalse").css("display", "block");
+                    $("#FormMultiple").css("display", "none");
+                } else if (tipo == 1) {
+                    $("#FormTrueFalse").css("display", "none");
+                    $("#FormMultiple").css("display", "block");
+                }
+            });
+        });
+    </script>
                 <?php
                     if(isset($_POST["submit"])){
                        
