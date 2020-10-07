@@ -52,8 +52,7 @@ CloseCon($conn);
                 <!-- ENVIO DE DATOS -->
                 <?php
                     if(isset($_POST["submit"])){
-                        // include '../../Share/conexion.php';
-                        // $conn=OpenCon();
+                       
 
                         //verificar la conexion
                         if ($conn == null){

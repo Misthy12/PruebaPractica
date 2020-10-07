@@ -19,7 +19,7 @@
               <div class="icon">
                 <i class="ion ion-bag"></i>
               </div>
-              <a href="../../Vistas/Ofertas/listado_ofertas.php" class="small-box-footer">Más informacion <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="../../Vistas/Usuarios/listado_usuarios.php" class="small-box-footer">Más informacion <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
