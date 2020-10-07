@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-10-2020 a las 21:27:19
+-- Tiempo de generación: 06-10-2020 a las 23:23:59
 -- Versión del servidor: 10.4.13-MariaDB
 -- Versión de PHP: 7.4.8
 
@@ -32,7 +32,6 @@ CREATE TABLE `tblalumnos` (
   `alumnoNombre` varchar(150) NOT NULL,
   `alumnoApellido` varchar(150) NOT NULL,
   `fechaNacimiento` date NOT NULL,
-  `clave` varchar(250) NOT NULL,
   `idUsuario` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -47,7 +46,6 @@ CREATE TABLE `tbldocentes` (
   `docenteNombre` varchar(150) NOT NULL,
   `docenteApellido` varchar(150) NOT NULL,
   `telefono` varchar(25) NOT NULL,
-  `clave` varchar(200) NOT NULL,
   `idUsuario` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -147,6 +145,13 @@ CREATE TABLE `tblusuarios` (
   `clave` varchar(255) NOT NULL,
   `idRol` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `tblusuarios`
+--
+
+INSERT INTO `tblusuarios` (`idUsuario`, `usuario`, `clave`, `idRol`) VALUES
+(1, 'nancyC', '$2y$10$1GhePn7uSHtiA94CiOX75O0fC0ksVQg3SSSjIpfgX7K5xSP4LV0Fa', 1);
 
 --
 -- Índices para tablas volcadas
@@ -258,7 +263,7 @@ ALTER TABLE `tbltipopreguntas`
 -- AUTO_INCREMENT de la tabla `tblusuarios`
 --
 ALTER TABLE `tblusuarios`
-  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Restricciones para tablas volcadas
