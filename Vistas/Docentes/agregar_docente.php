@@ -1,6 +1,8 @@
 <?php
 include "../../Share/header.php";
 include "../../Share/conexion.php";
+require '../../Share/PhpMailer/src/PHPMailer.php';
+require '../../Share/PhpMailer/src/SMTP.php';
 
 ?>
     <title>Docente</title>
@@ -92,6 +94,26 @@ include "../../Share/conexion.php";
                                   text: 'Se ha realizado el Registro!',
                                 })
                                 </script>";
+
+                                //envio de correo
+                                $mail=new PHPMailer();
+                                $mail->CharSet = 'UTF-8';
+                                $body = "".$_POST["nombre"]." ".$_POST["apellido"]." Su Ingrese a nuestro portal con el usuario: ".$_POST["nombreUsuario"]." y contraseña: ".$_POST["clave"]." Gracias por preferirnos!";
+                                $mail->IsSMTP();
+                                $mail->Host       = 'smtp.gmail.com';
+                                $mail->SMTPSecure = 'tls';
+                                $mail->Port       = 587;
+                                $mail->SMTPDebug  = 1;
+                                $mail->SMTPAuth   = true;
+                                $mail->Username   = 'kanfevaluaciones@gmail.com';
+                                $mail->Password   = 'Kanf12345678';
+                                $mail->SetFrom('kanfevaluaciones@info.com', "KANF Evaluaciones");
+                                $mail->AddReplyTo('no-reply@info.com','no-reply');
+                                $mail->Subject    = 'Credenciales Registro';
+                                $mail->MsgHTML($body);
+
+                                $mail->AddAddress($_POST["correo"]);
+                                $mail->send();
                             }else{
                                 Print"<script>
                                 Swal.fire({

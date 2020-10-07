@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-10-2020 a las 23:23:59
+-- Tiempo de generación: 07-10-2020 a las 03:33:38
 -- Versión del servidor: 10.4.13-MariaDB
 -- Versión de PHP: 7.4.8
 
@@ -32,7 +32,8 @@ CREATE TABLE `tblalumnos` (
   `alumnoNombre` varchar(150) NOT NULL,
   `alumnoApellido` varchar(150) NOT NULL,
   `fechaNacimiento` date NOT NULL,
-  `idUsuario` int(11) NOT NULL
+  `idUsuario` int(11) NOT NULL,
+  `correo` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -46,7 +47,8 @@ CREATE TABLE `tbldocentes` (
   `docenteNombre` varchar(150) NOT NULL,
   `docenteApellido` varchar(150) NOT NULL,
   `telefono` varchar(25) NOT NULL,
-  `idUsuario` int(11) NOT NULL
+  `idUsuario` int(11) NOT NULL,
+  `correo` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -151,7 +153,7 @@ CREATE TABLE `tblusuarios` (
 --
 
 INSERT INTO `tblusuarios` (`idUsuario`, `usuario`, `clave`, `idRol`) VALUES
-(1, 'nancyC', '$2y$10$1GhePn7uSHtiA94CiOX75O0fC0ksVQg3SSSjIpfgX7K5xSP4LV0Fa', 1);
+(1, 'nancy.colato', '$2y$10$mxoR80ggWt5cnvQ7IHOyvuN13xaT1GhTT61Pd8V3dZt0cdB2nhHl6', 1);
 
 --
 -- Índices para tablas volcadas

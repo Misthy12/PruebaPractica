@@ -1,6 +1,8 @@
 <?php
 include "../../Share/header.php";
 include "../../Share/conexion.php";
+require '../../Share/PhpMailer/src/PHPMailer.php';
+require '../../Share/PhpMailer/src/SMTP.php';
 
 ?>
     <title>Alumno</title>
@@ -25,11 +27,19 @@ include "../../Share/conexion.php";
                             <br>
                         </div>
                     </div>
-                    <div class="col-md-12 col-sm-12">
-                        <label for="fecha">Fecha Nacimiento</label>
-                        <input type="date" name="fecha" id="fecha" class="form-control" require>
-                        <br>
+                    <div class="row col-12 form-group">
+                        <div class="col-md-6 col-sm-12">
+                            <label for="fecha">Fecha Nacimiento</label>
+                            <input type="date" name="fecha" id="fecha" class="form-control" require>
+                            <br>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <label for="correo">Correo</label>
+                            <input type="email" name="correo" id="correo" class="form-control" require>
+                            <br>
+                        </div>
                     </div>
+
                     <div class="">
                     <hr>
                         <h4 class="text-center font-weight-bold">Usuario</h4>
@@ -70,7 +80,7 @@ include "../../Share/conexion.php";
                             die("No se ha podido conectar con la base de datos :(");
                         }
 
-                        if($_POST["nombre"]!="" && $_POST["apellido"]!="" && $_POST["fecha"]!="" && $_POST["nombreUsuario"]!="" && $_POST["clave"]!=""){
+                        if($_POST["nombre"]!="" && $_POST["apellido"]!="" && $_POST["fecha"]!="" && $_POST["nombreUsuario"]!="" && $_POST["clave"]!="" && $_POST["correo"]!=""){
                             $idUser="";
                             //envia el usuario
                             $clave=password_hash($_POST["clave"], PASSWORD_DEFAULT);//clave encriptada
@@ -81,8 +91,8 @@ include "../../Share/conexion.php";
                             //echo $idUser;
 
                             //envia el docente
-                            $sql ="INSERT INTO tblAlumnos(alumnoNombre, alumnoApellido, fechaNacimiento, idUsuario)
-                                    VALUES ('".$_POST["nombre"]."','".$_POST["apellido"]."','".$_POST["fecha"]."','".$idUser."')";
+                            $sql ="INSERT INTO tblAlumnos(alumnoNombre, alumnoApellido, fechaNacimiento, idUsuario, correo)
+                                    VALUES ('".$_POST["nombre"]."','".$_POST["apellido"]."','".$_POST["fecha"]."','".$idUser."','".$_POST["correo"]."')";
                             $count += $conn->exec($sql);
                             if($count > 1){
                                 Print"<script>
@@ -92,6 +102,27 @@ include "../../Share/conexion.php";
                                   text: 'Se ha realizado el Registro!',
                                 })
                                 </script>";
+
+                                //envio de correo
+                                $mail=new PHPMailer();
+                                $mail->CharSet = 'UTF-8';
+                                $body = "".$_POST["nombre"]." ".$_POST["apellido"]." Su Ingrese a nuestro portal con el usuario: ".$_POST["nombreUsuario"]." y contraseña: ".$_POST["clave"]." Gracias por preferirnos!";
+                                $mail->IsSMTP();
+                                $mail->Host       = 'smtp.gmail.com';
+                                $mail->SMTPSecure = 'tls';
+                                $mail->Port       = 587;
+                                $mail->SMTPDebug  = 1;
+                                $mail->SMTPAuth   = true;
+                                $mail->Username   = 'kanfevaluaciones@gmail.com';
+                                $mail->Password   = 'Kanf12345678';
+                                $mail->SetFrom('Kanfevaluaciones@info.com', "KANF Evaluaciones");
+                                $mail->AddReplyTo('no-reply@info.com','no-reply');
+                                $mail->Subject    = 'Credenciales Registro';
+                                $mail->MsgHTML($body);
+
+                                $mail->AddAddress($_POST["correo"]);
+                                $mail->send();
+
                             }else{
                                 Print"<script>
                                 Swal.fire({

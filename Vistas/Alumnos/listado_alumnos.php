@@ -14,7 +14,7 @@ include("../../Share/header.php");
                     </div>
                     
                     <div class="col-lg-2 col-md-2">
-                        <a href="agregar_docente.php" class="btn-primary btn" ><i class="fas fa-plus"></i> Agregar</a>
+                        <a href="agregar_alumno.php" class="btn-primary btn" ><i class="fas fa-plus"></i> Agregar</a>
                     </div>
                 </div>
             </div>
