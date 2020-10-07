@@ -70,7 +70,7 @@
                         <div class="col-md-4 col-sm-12" >
                             <?php
                                 if($_SESSION["login"] ="Admin"){
-                                    echo "<a href='../Docentes/listado_Docentes.php' class='btn btn-warning btn-block col-4'>Regresar</a>";
+                                    echo "<a href='../Alumnos/listado_alumnos.php' class='btn btn-warning btn-block col-4'>Regresar</a>";
                                 }
                             ?>
                         </div>
