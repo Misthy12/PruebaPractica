@@ -8,7 +8,7 @@
 
         //extraemos datos
         $id=$_GET["codigo"];
-        $stmm = $conn->prepare("SELECT d.idDocente, d.docenteNombre as nombre, d.docenteApellido as apellido, d.telefono, u.usuario, u.clave, d.idUsuario FROM tblDocentes d
+        $stmm = $conn->prepare("SELECT d.idDocente, d.correo, d.docenteNombre as nombre, d.docenteApellido as apellido, d.telefono, u.usuario, u.clave, d.idUsuario FROM tblDocentes d
         INNER JOIN tblUsuarios u ON d.idUsuario = u.idUsuario WHERE d.idDocente=$id");
         $stmm->execute(array($id));
         $row=$stmm->fetchAll(PDO::FETCH_OBJ);
@@ -49,15 +49,20 @@
                         </div>
                     </div>
                     <div class="row col-12 form-group">
-                        <div class="col-md-6 col-sm-12">
+                        <div class="col-md-3 col-sm-12">
                             <label for="tel">Telefono</label>
                             <input type="tel" name="tel" id="tel" class="form-control" value="<?php echo $row->telefono?>" required/>
                             <br>
                         </div>
                         
-                        <div class="col-md-6 col-sm-12" >
+                        <div class="col-md-3 col-sm-12" >
                             <label for="user">Usuario</label>
                             <input type="text" name="user" id="user" class="form-control" value="<?php echo $row->usuario?>" readonly/>
+                            <br>
+                        </div>
+                        <div class="col-md-6 col-sm-12" >
+                            <label for="correo">Correo</label>
+                            <input type="email" name="correo" id="correo" class="form-control" value="<?php echo $row->correo?>" />
                             <br>
                         </div>
                     </div>
@@ -91,7 +96,7 @@
 
                         if($_POST["nombre"]!="" && $_POST["apellido"]!="" && $_POST["tel"]!="" ){
                            
-                            $sql = "UPDATE tblDocentes SET docenteNombre='".$_POST["nombre"]."', docenteApellido='".$_POST["apellido"]."', telefono='".$_POST["tel"]."' WHERE id='".$_POST["id"]."'";
+                            $sql = "UPDATE tblDocentes SET docenteNombre='".$_POST["nombre"]."', docenteApellido='".$_POST["apellido"]."', telefono='".$_POST["tel"]."', correo='".$_POST["correo"]."' WHERE id='".$_POST["id"]."'";
                             $codigo=$_POST["id"];        
                             $count = $conn->exec($sql);
                             if($count > 0){
