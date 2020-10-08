@@ -124,7 +124,7 @@ session_start();
           //PARA ESTUDIANTE
           elseif($data->idRol==3 ){
             $idUser=$data->idUsuario;//ide del usuario
-            $stmtA = $conn->prepare("SELECT * FROM tblAlumnos  WHERE u.idUsuario=:idUser"); 
+            $stmtA = $conn->prepare("SELECT * FROM tblAlumnos  WHERE idUsuario=:idUser"); 
             $stmtA->bindParam("idUser", $idUser,PDO::PARAM_STR) ;
             $stmtA->execute();
             $countA=$stmtA->rowCount();
@@ -133,15 +133,15 @@ session_start();
             if($countA>0){
             $nombreAlum=$dataAlumn->alumnoNombre." ".$dataAlumn->alumnoApellido;
 
-            $_SESSION['idUser']=$dataAlumn->idUsuario; // Storing user session value
+            $_SESSION['idUser']=$data->idUsuario; // Storing user session value
             $_SESSION['id']=$dataAlumn->idAlumno;
-            $_SESSION['nombre']=$nombreAlumn;
+            $_SESSION['nombre']=$nombreAlum;
             $_SESSION["login"]="Alumno";//identificar la sesion
             print "<script> window.location = './Vistas/Index/IndexAlumno.php';</script>";
             }
           }
           //PARA DOCENTE
-          elseif($data->idRol==2){
+          else{
             $idUser=$data->idUsuario;//id del usuario
             $stmtD = $conn->prepare("SELECT * FROM tblDocentes WHERE idUsuario=:idUser"); 
             $stmtD->bindParam("idUser", $idUser,PDO::PARAM_STR) ;
