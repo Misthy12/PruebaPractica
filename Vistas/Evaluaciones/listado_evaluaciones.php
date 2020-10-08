@@ -23,8 +23,15 @@ include("../../Share/header.php");
             <?php
             include '../../Share/conexion.php';
             $conn =OpenCon();
+            //id docente
+            $docente= $_SESSION["id"];
+            if($_SESSION["login"]=="Docente"){
+                $sql="SELECT e.idEvaluacion as id, e.codigo, e.fecha, e.idDocente, d.docenteNombre as nombre, d.docenteApellido as apellido FROM tblEvaluaciones e
+                    INNER JOIN tblDocentes d ON e.idDocente = d.idDocente WHERE e.idDocente=$docente";
+            }else{
             $sql="SELECT e.idEvaluacion as id, e.codigo, e.fecha, e.idDocente, d.docenteNombre as nombre, d.docenteApellido as apellido FROM tblEvaluaciones e
                     INNER JOIN tblDocentes d ON e.idDocente = d.idDocente";
+                    }
             ?>
             <div class="card-body table-responsive">
                 <table class="table  table-hover table-striped ">

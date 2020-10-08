@@ -71,11 +71,13 @@
                     <div class="row col-12 form-group">
                        
                             <input type="hidden" name="id" id="id" class="form-control" value="<?php echo $row->id?>" required/>
-                            <input type="Submit" value="Guardar" name="submit" class="btn btn-success btn-block col-md-4 col-sm-12">
+                            <input type="Submit" value="Guardar" name="submit" class="btn btn-success ">
                        
                             <?php
-                                if($_SESSION["login"] ="Admin"){
-                                    echo "<a href='../Alumnos/listado_alumnos.php' class='btn btn-warning btn-block col-md-4 col-sm-12'>Regresar</a>";
+                                if($_SESSION["login"] ="Alumno"){
+                                    echo "<a href='../Index/IndexAlumno.php' class='btn btn-warning' style='margin-left:3px'>Regresar</a>";
+                                }else{
+                                    echo "<a href='../Alumnos/listado_alumnos.php' class='btn btn-warning' style='margin-left:3px'>Regresar</a>";
                                 }
                             ?>
                         
