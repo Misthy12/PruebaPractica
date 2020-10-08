@@ -1,7 +1,7 @@
 <?php 
   include "../../Share/header.php";
-  include "../../Share/conexion.php";
-  include('../../Share/validar.php');
+//   include "../../Share/conexion.php";
+  include '../../Share/funciones.php';
 ?>
     <!-- Main content -->
     <section class="content">
@@ -22,37 +22,29 @@
                     <?php
                             $conn =OpenCon();
                             $hoy= date("Y-m-d");//fecha actual
-                            $idUser=$_SESSION["idAlumno"];
+                            $idUser=$_SESSION["id"];
 
                             $sql="SELECT ea.idEvaluacionAlumno as id, ea.nota, e.codigo, e.fecha, e.idDocente, ea.idAlumno, ea.estado FROM tblEvaluacionAlumno ea
                                     INNER JOIN tblEvaluaciones e ON ea.idEvaluacion= e.idEvaluacion WHERE ea.idAlumno=$idUser AND ea.estado='Aprobado'";
 
+                            if(alumnosAprobados($idUser)==NULL){
+                                ECHO "<h1 class='text-center bg-warning card-footer text-uppercase'>No tiene registros de aprobado!!</h1>";
+                            }
                             echo "<div class='row col-12'>";
                             //Imprecion de formulario
                             foreach($conn->query($sql) as $row){
-                                $docente=$row["idDocente"];
-                                $sqlDocente=$conn->prepare("SELECT docenteNombre as nombre, docenteApellido as apellido FROM tblDocentes WHERE idDocente= $docente ");
-                                $sqlDocente->execute(array($docente));
-                                $count=$sqlDocente->rowCount();
-                                $rowS=$sqlDocente->fetchAll(PDO::FETCH_OBJ);
-                                // if($count==null)
-                                // {
-                                //     ECHO "<h1 class='text-center text-warning'>NO DISPONE DE EVALUACIONES!!</h1>";
-                                // }
-                                //else{
-                                foreach($rowS as $rowS){}
+                               
                                 echo "<div class='card col-sm-12 col-md-3' >";
                                 echo "<div class='card-header bg-success'> 
                                 <h4 class='text-center'>Aprobada!!</h4>
                                 <h6 class='text-center'><b>Codigo: </b>".$row["codigo"]."</h6>
                                 </div>";
                                 echo "<div class='card-body '>";
-                                    echo "<h3 class='text-center'><b>Docente: </b>".$rowS->nombre." ".$rowS->apellido."</h3>";
+                                    echo "<h3 class='text-center'><b>Docente: </b>".docentesParaInfoEval($row["idDocente"])."</h3>";
                                     echo "<h6 class='h6 text-center font-weight-bold'> <b>Fecha: </b>".$row["fecha"]."</h6>";
-                                    echo "<p class='text-lg-center'> <b>NOTA: </b>$".$row["nota"]."</p> <hr>";
+                                    echo "<p class='text-lg-center'> <b>NOTA: </b>".$row["nota"]."</p> <hr>";
                                 echo "</div></div>";
-                                    // }
-                                //}
+                                    
                             }
                             echo "</div>";
                             CloseCon($conn);
@@ -64,30 +56,27 @@
                 <?php
                             $conn =OpenCon();
                             $hoy= date("Y-m-d");//fecha actual
-                            $idUser=$_SESSION["idAlumno"];
+                            // $idUser=$_SESSION["idAlumno"];
 
                             $sql="SELECT ea.idEvaluacionAlumno as id, ea.nota, e.codigo, e.fecha, e.idDocente, ea.idAlumno, ea.estado FROM tblEvaluacionAlumno ea
                                     INNER JOIN tblEvaluaciones e ON ea.idEvaluacion= e.idEvaluacion WHERE ea.idAlumno=$idUser AND ea.estado='Reprobado'";
 
+                            if(alumnosReprobados($idUser)==NULL){
+                                ECHO "<h1 class='text-center bg-warning card-footer text-uppercase'>No tiene registros de reprobado!!</h1>";
+                            }
                             echo "<div class='row col-12'>";
                             //Imprecion de formulario
                             foreach($conn->query($sql) as $row){
-                                $docente=$row["idDocente"];
-                                $sqlDocente=$conn->prepare("SELECT docenteNombre as nombre, docenteApellido as apellido FROM tblDocentes WHERE idDocente= $docente ");
-                                $sqlDocente->execute(array($docente));
-                                $count=$sqlDocente->rowCount();
-                                $rowS=$sqlDocente->fetchAll(PDO::FETCH_OBJ);
                                 
-                                foreach($rowS as $rowS){}
                                 echo "<div class='card col-sm-12 col-md-3' >";
                                 echo "<div class='card-header bg-danger'> 
                                 <h4 class='text-center'>Reprobada!!</h4>
                                 <h6 class='text-center'><b>Codigo: </b>".$row["codigo"]."</h6>
                                 </div>";
                                 echo "<div class='card-body'>";
-                                    echo "<h3 class='text-center'><b>Docente: </b>".$rowS->nombre." ".$rowS->apellido."</h3>";
+                                    echo "<h3 class='text-center'><b>Docente: </b>".docentesParaInfoEval($row["idDocente"])."</h3>";
                                     echo "<h6 class='h6 text-center font-weight-bold'> <b>Fecha: </b>".$row["fecha"]."</h6>";
-                                    echo "<p class='text-lg-center'> <b>NOTA: </b>$".$row["nota"]."</p> <hr>";
+                                    echo "<p class='text-lg-center'> <b>NOTA: </b>".$row["nota"]."</p> <hr>";
                                 echo "</div></div>";
                                     
                             }

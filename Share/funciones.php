@@ -102,4 +102,28 @@
          return($nombre);
          CloseCon($conn);
      }
+
+     function alumnosAprobados($id){
+          //consulta a bd
+         $conn=OpenCon();
+ 
+         //consulta de Num de cupones
+         $stmt = $conn->prepare("SELECT idEvaluacion FROM tblevaluacionalumno WHERE estado='Aprobado' AND idAlumno=$id");
+         $stmt->execute();
+         $count=$stmt->rowCount();
+         return($count);
+         CloseCon($conn);
+     }
+     
+     function alumnosReprobados($id){
+          //consulta a bd
+         $conn=OpenCon();
+         //consulta de Num de cupones
+         $stmt = $conn->prepare("SELECT idEvaluacion FROM tblevaluacionalumno WHERE estado='Reprobado' AND idAlumno=$id");
+         $stmt->execute();
+         $count=$stmt->rowCount();
+         return($count);
+         CloseCon($conn);
+     }
+
 ?>
