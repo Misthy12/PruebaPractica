@@ -4,15 +4,11 @@
      if($_GET)
      {
          //CONEXION
-        //include("../../Share/conexion.php");
         $conn=OpenCon();
 
         //extraemos datos
         $id=$_GET["codigo"];
-        // $sql="SELECT * FROM tblEmpresas WHERE idEmpresa=?";
-        // $sql="SELECT e.idEvaluacion as id, e.codigo, e.fecha, e.idDocente, d.docenteNombre as nombre, d.docenteApellido as apellido, e.indicaciones FROM tblEvaluaciones e
-        //  INNER JOIN tblDocente d ON e.idDocente = d.idDocente WHERE e.idEvaluacion=$id";
-        // //consulta de Actividades Realizadas
+         //consulta de Actividades Realizadas
         $sqlAR=$sql="SELECT ea.idEvaluacionAlumno , ea.nota, a.alumnoNombre, a.alumnoApellido, ea.estado, e.idEvaluacion,e.codigo, e.fecha, e.idDocente, e.indicaciones FROM tblEvaluacionAlumno ea
         INNER JOIN tblAlumnos a ON ea.idAlumno= a.idAlumno 
         INNER JOIN tblEvaluaciones e ON ea.idEvaluacion = e.idEvaluacion WHERE ea.idEvaluacion = ?";
