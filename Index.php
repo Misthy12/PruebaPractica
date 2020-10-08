@@ -133,15 +133,15 @@ session_start();
             if($countA>0){
             $nombreAlum=$dataAlumn->alumnoNombre." ".$dataAlumn->alumnoApellido;
 
-            $_SESSION['id']=$dataAlumn->idUsuario; // Storing user session value
-            $_SESSION['idAlumno']=$dataAlumn->idAlumno;
+            $_SESSION['idUser']=$dataAlumn->idUsuario; // Storing user session value
+            $_SESSION['id']=$dataAlumn->idAlumno;
             $_SESSION['nombre']=$nombreAlumn;
             $_SESSION["login"]="Alumno";//identificar la sesion
             print "<script> window.location = './Vistas/Index/IndexAlumno.php';</script>";
             }
           }
           //PARA DOCENTE
-          elseif($data->idRol==2 ){
+          elseif($data->idRol==2){
             $idUser=$data->idUsuario;//id del usuario
             $stmtD = $conn->prepare("SELECT * FROM tblDocentes WHERE idUsuario=:idUser"); 
             $stmtD->bindParam("idUser", $idUser,PDO::PARAM_STR) ;
@@ -151,8 +151,8 @@ session_start();
             if($countD>0){
             $nombreDocen=$dataDocen->docenteNombre." ".$dataDocen->docenteApellido;
 
-            $_SESSION['id']=$data->idUsuario; // Storing user session value
-            $_SESSION['idDocente']=$dataDocen->idDocente; // Storing user session value
+            $_SESSION['idUSer']=$data->idUsuario; // Storing user session value
+            $_SESSION['id']=$dataDocen->idDocente; // Storing user session value
             $_SESSION['nombre']=$nombreDocen;
             $_SESSION["login"]="Docente";//identificar la sesion
             print "<script> window.location = './Vistas/Index/IndexDocente.php';</script>";
