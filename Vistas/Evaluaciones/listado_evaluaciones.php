@@ -1,7 +1,7 @@
 <?php
 include("../../Share/header.php");
 ?>
-    <title>Usuarios</title>
+    <title>Evaluaciones</title>
     
 <!-- Main content -->
 <section class="content">
@@ -10,11 +10,11 @@ include("../../Share/header.php");
             <div class="card-header">
                 <div class="row">
                     <div class="col-lg-10 col-md-7">
-                        <h4 class="text-center">Usuarios Registrados</h4>
+                        <h4 class="text-center">Evaluaciones Registradas</h4>
                     </div>
                     
                     <div class="col-lg-2 col-md-2">
-                        <a href="agregar_usuario.php" class="btn-success btn" ><i class="fas fa-plus"></i>Agregar</a>
+                        <a href="agregar_evaluacion.php" class="btn-success btn" ><i class="fas fa-plus"></i> Agregar</a>
                     </div>
                 </div>
             </div>
@@ -23,17 +23,17 @@ include("../../Share/header.php");
             <?php
             include '../../Share/conexion.php';
             $conn =OpenCon();
-            $sql="SELECT u.idUsuario, u.usuario, u.clave, r.rol, u.idRol FROM tblusuarios u
-                    INNER JOIN tblRoles r ON u.idRol = r.idRol";
+            $sql="SELECT e.idEvaluacion as id, e.codigo, e.fecha, e.idDocente, d.docenteNombre as nombre, d.docenteApellido as apellido FROM tblEvaluaciones e
+                    INNER JOIN tblDocente d ON e.idDocente = d.idDocente";
             ?>
             <div class="card-body table-responsive">
                 <table class="table  table-hover table-striped ">
                     <thead class="bg-dark text-center">
                         <tr>
+                            <th>N°</th>
                             <th>Codigo</th>
-                            <th>Usuario</th>
-                            <th>Password</th>
-                            <th>Rol</th>
+                            <th>Docente</th>
+                            <th>Fecha realizacion</th>
                             <th>Opciones</th>
                         </tr>
                     </thead>
@@ -42,13 +42,14 @@ include("../../Share/header.php");
                         <?php
                         foreach( $conn->query($sql) as $row){
                                 echo "<tr>";
-                                    echo "<td>".$row["idUsuario"]."</td>";
-                                    echo "<td>".$row["usuario"]."</td>";
-                                    echo "<td>*******</td>"; 
-                                    echo "<td>".$row["rol"]."</td>";
+                                    echo "<td>".$row["id"]."</td>";
+                                    echo "<td>".$row["codigo"]."</td>";
+                                    echo "<td>".$row["nombre"]." ".$row["apellido"]."</td>"; 
+                                    echo "<td>".$row["fecha"]."</td>";
                                     echo "<td>";
-                                        echo "<a class='btn btn-sm btn-warning' href=\"../Usuarios/editar_usuario.php?codigo=". $row["idUsuario"]."\" ><i class='fas fa-edit'></i></a> \n";
-                                        echo "<a class=\"btn btn-sm btn-danger\" href=\"./eliminar_usuario.php?codigo=". $row["idUsuario"]."\"><i class=\"far fa-trash-alt\"></i></a>";
+                                        echo "<a class='btn btn-sm btn-warning' href=\"../Usuarios/editar_evaluacion.php?codigo=". $row["id"]."\" ><i class='fas fa-edit'></i></a> \n";
+                                        echo "<a class='btn btn-sm btn-info' href=\"../Usuarios/info_evaluacion.php?codigo=". $row["id"]."\" ><i class='fas fa-info'></i></a> \n";
+                                        echo "<a class=\"btn btn-sm btn-danger\" href=\"./eliminar_evaluacion.php?codigo=". $row["id"]."\"><i class=\"far fa-trash-alt\"></i></a>";
                                     echo "</td>";
                                 echo "</tr>";
                             }

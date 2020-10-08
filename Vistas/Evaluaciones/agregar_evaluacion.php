@@ -168,7 +168,7 @@ CloseCon($conn);
 
         if ($_POST["codigo"] != "" && $_POST["fecha"] != "" && $_POST["docente"] != "") {
 
-            $sqlEvaluacion = "INSERT INTO tblEvaluaciones(codigo, fecha, idDocente) VALUES ('" . $_POST["codigo"] . "','" . $_POST["fecha"] . "','" . $_POST["docente"] . "')";
+            $sqlEvaluacion = "INSERT INTO tblEvaluaciones(codigo, fecha, idDocente, indicaciones) VALUES ('" . $_POST["codigo"] . "','" . $_POST["fecha"] . "','" . $_POST["docente"] . "','" . $_POST["Indicaciones"] . "')";
             $count = $conn->exec($sqlEvaluacion);
             $idEval = $conn->lastInsertId(); //extrae el id del ultimo registro insertado en la bd
 
