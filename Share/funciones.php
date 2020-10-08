@@ -11,6 +11,7 @@
          $stmt->execute();
          $count=$stmt->rowCount();
          return($count);
+         CloseCon($conn);
     }
  
     function numeroEvaluaciones(){
@@ -22,6 +23,7 @@
          $stmt->execute();
          $count=$stmt->rowCount();
          return($count/100);
+         CloseCon($conn);
     }
  
     function numeroUsuarios(){
@@ -33,6 +35,7 @@
          $stmt->execute();
          $count=$stmt->rowCount();
          return($count);
+         CloseCon($conn);
     }
     function numeroDocentes(){
          //consulta a bd
@@ -43,6 +46,7 @@
          $stmt->execute();
          $count=$stmt->rowCount();
          return($count);
+         CloseCon($conn);
     }
 
     function generarCodigo($longitud) {
@@ -59,4 +63,43 @@
             return $key;
         
        }
+
+     function aprobados($id){
+          //consulta a bd
+         $conn=OpenCon();
+ 
+         //consulta de Num de cupones
+         $stmt = $conn->prepare("SELECT idEvaluacion FROM tblevaluacionalumno WHERE estado='Aprobado' AND idEvaluacion=$id");
+         $stmt->execute();
+         $count=$stmt->rowCount();
+         return($count);
+         CloseCon($conn);
+     }
+
+     function reprobados($id){
+          //consulta a bd
+         $conn=OpenCon();
+ 
+         //consulta de Num de cupones
+         $stmt = $conn->prepare("SELECT idEvaluacion FROM tblevaluacionalumno WHERE estado='Reprobado' AND idEvaluacion=$id");
+         $stmt->execute();
+         $count=$stmt->rowCount();
+         return($count);
+         CloseCon($conn);
+     }
+     
+     function docentesParaInfoEval($id){
+          //consulta a bd
+         $conn=OpenCon();
+ 
+         //consulta de Num de cupones
+         $stmt = $conn->prepare("SELECT * FROM tblDocentes WHERE idDocente=$id");
+         $stmt->execute();
+         $rowE=$stmt->fetchAll(PDO::FETCH_OBJ);
+          foreach($rowE as $rowE){
+               $nombre=$rowE->docenteNombre." ".$rowE->docenteApellido;
+          }
+         return($nombre);
+         CloseCon($conn);
+     }
 ?>
