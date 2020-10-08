@@ -24,7 +24,7 @@ include("../../Share/header.php");
             include '../../Share/conexion.php';
             $conn =OpenCon();
             $sql="SELECT e.idEvaluacion as id, e.codigo, e.fecha, e.idDocente, d.docenteNombre as nombre, d.docenteApellido as apellido FROM tblEvaluaciones e
-                    INNER JOIN tblDocente d ON e.idDocente = d.idDocente";
+                    INNER JOIN tblDocentes d ON e.idDocente = d.idDocente";
             ?>
             <div class="card-body table-responsive">
                 <table class="table  table-hover table-striped ">
@@ -47,8 +47,8 @@ include("../../Share/header.php");
                                     echo "<td>".$row["nombre"]." ".$row["apellido"]."</td>"; 
                                     echo "<td>".$row["fecha"]."</td>";
                                     echo "<td>";
-                                        echo "<a class='btn btn-sm btn-warning' href=\"../Usuarios/editar_evaluacion.php?codigo=". $row["id"]."\" ><i class='fas fa-edit'></i></a> \n";
-                                        echo "<a class='btn btn-sm btn-info' href=\"../Usuarios/info_evaluacion.php?codigo=". $row["id"]."\" ><i class='fas fa-info'></i></a> \n";
+                                        echo "<a class='btn btn-sm btn-warning' href=\"../Evaluaciones/editar_evaluacion.php?codigo=". $row["id"]."\" ><i class='fas fa-edit'></i></a> \n";
+                                        echo "<a class='btn btn-sm btn-info' href=\"../Evaluaciones/info_evaluacion.php?codigo=". $row["id"]."\" ><i class='fas fa-info'></i></a> \n";
                                         echo "<a class=\"btn btn-sm btn-danger\" href=\"./eliminar_evaluacion.php?codigo=". $row["id"]."\"><i class=\"far fa-trash-alt\"></i></a>";
                                     echo "</td>";
                                 echo "</tr>";
