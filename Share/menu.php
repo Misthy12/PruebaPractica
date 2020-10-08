@@ -34,7 +34,6 @@
       <a class="brand-link">
         <i class="brand-image img-circle mt-2 text-lg nav-icon fas fa-user" style="color:#fff" ></i>
         <span class="brand-text font-weight-light text-center"><?php echo $_SESSION["nombre"]?></span>
-        <!--<span class="brand-text font-weight-light text-center"><?php //echo $_SESSION["nombre"]?></span> -->
       </a>
 
       <!-- Sidebar Menu -->
@@ -62,9 +61,9 @@
               if($_SESSION["login"]=="Alumno"){?>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tag"></i>
+              <i class="nav-icon fas fa-folder"></i>
               <p>
-                
+                Evaluaciones
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
@@ -81,7 +80,7 @@
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-id-card"></i>
               <p>
-              <?php echo $_SESSION["nombre"]; ?>
+                <?php echo $_SESSION['nombre']; ?>
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
