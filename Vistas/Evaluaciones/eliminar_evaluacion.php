@@ -6,24 +6,24 @@
         // Verificamos la conexión
         if ($conn->connect_error) {
             die("No se pudo conectar a la base de datos :( ");
-            header('Location: ./listado_usuarios.php?result=0');
+            header('Location: ./listado_evaluaciones.php?result=0');
         } 
         
-        $sql = "DELETE FROM tblusuarios WHERE idUsuario = ?";
+        $sql = "DELETE FROM tblEvaluaciones WHERE idEvaluacion = ?";
 
         $sth = $conn->prepare($sql);
         $sth->execute(array($_GET['codigo']));
         $count = $sth->rowCount();
 
             if ($count > 0) {
-                header('Location: ./listado_usuarios.php?result=1');                
+                header('Location: ./listado_evaluaciones.php?result=1');                
                 exit();
             } else {
-                header('Location: ./listado_usuarios.php?result=0');
+                header('Location: ./listado_evaluaciones.php?result=0');
                 exit();
             }
             CloseCon($conn);
     } else {
-        header('Location:./listado_usuarios.php?result=0');
+        header('Location:./listado_evaluaciones.php?result=0');
     }
 ?>
