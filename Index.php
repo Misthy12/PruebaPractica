@@ -62,12 +62,12 @@ session_start();
                         </button>
                     </div>
 
-                    <div class="text-center p-t-12">
+                    <div class="text-center p-t-25">
                         <span class="txt1">
-                            Recordar
+                            Olvide
                         </span>
-                        <a class="txt2" href="#">
-                            Usuario / Contraseña?
+                        <a class="txt2" href="./Vistas/Usuarios/cambiar_clave.php">
+                            Mi Contraseña?
                         </a>
                     </div>
                 </form>

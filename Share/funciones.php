@@ -37,6 +37,32 @@
          return($count);
          CloseCon($conn);
     }
+    //busqueda de usuario
+    function usuario($usuario){
+         //consulta a bd
+         $conn=OpenCon();
+ 
+         //consulta de Num de usuarios
+         $stmt = $conn->prepare("SELECT idUsuario FROM tblUsuarios");
+         $stmt->execute();
+         $count=$stmt->rowCount();
+         return($count);
+         CloseCon($conn);
+    }
+
+
+    //generar contrasenias
+    function generarClaves($long){
+     $str = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
+     $password = "";
+     //Reconstruimos la contraseña segun la longitud que se quiera
+     for($i=0;$i<$long;$i++) {
+        //obtenemos un caracter aleatorio escogido de la cadena de caracteres
+         $password .= substr($str,rand(0,62),1);
+     }
+     return $password;
+    }
+    //
     function numeroDocentes(){
          //consulta a bd
          $conn=OpenCon();
