@@ -50,9 +50,7 @@ if (isset($_POST["btnEvaluacion"])) {
                 text: 'La Fecha Ya Paso!',
             })
             </script>";
-        } else {
-            $stmm1 = "SELECT *from tblpreguntas INNER JOIN tblevaluaciones on tblpreguntas.idEvaluacion = tblevaluaciones.idEvaluacion 
-            where tblevaluaciones.codigo ='.$id.'";
+        } else {           
 ?>
             <div class="card">
                 <div class="card-header bg-success">
@@ -61,11 +59,13 @@ if (isset($_POST["btnEvaluacion"])) {
                 <div class="card-body">
                     <?PHP
                     $i = 1;
+                    $stmm1 = "SELECT *from tblpreguntas where idEvaluacion = $rowe->idEvaluacion";
                     foreach ($conn->query($stmm1) as $rowp) {
                     ?>
-                        <label for="Respuesta"><?php echo "$i - $rowp->pregunta"  ?></label>
+                    <br>
+                        <label for="Respuesta"><?php echo "$i - ".$rowp['pregunta']."?"; ?></label>
                         <?php
-                        if ($rowp->idTipoPregunta == 2) { ?>
+                        if ($rowp["idTipoPregunta"] == 2) { ?>
                             <select name="Respuesta" id="Respuesta" class="form-control">
                                 <option value="Verdadero">Verdadero</option>
                                 <option value="Falso">Falso</option>
@@ -74,22 +74,22 @@ if (isset($_POST["btnEvaluacion"])) {
 
                             <div class="form-check-inline">
                                 <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="optradio1" value="<?php echo "$rowp->seleccion1"; ?>"><?php echo "$rowp->seleccion1";  ?>
+                                    <input type="radio" class="form-check-input" name="optradio1" value="<?php echo $rowp['seleccion1']; ?>"><?php echo $rowp['seleccion1'];?>
                                 </label>
                             </div>
                             <div class="form-check-inline">
                                 <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="optradio" value="<?php echo "$rowp->respuestaCorrecta"; ?>"><?php echo "$rowp->respuestaCorrecta"; ?>
+                                    <input type="radio" class="form-check-input" name="optradio" value="<?php echo $rowp['respuestaCorrecta']; ?>"><?php echo $rowp['respuestaCorrecta']; ?>
                                 </label>
                             </div>
                             <div class="form-check-inline disabled">
                                 <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="optradio" value="<?php echo "$rowp->seleccion2";  ?>"><?php echo "$rowp->seleccion2";  ?>
+                                    <input type="radio" class="form-check-input" name="optradio" value="<?php echo $rowp['seleccion2'];  ?>"><?php echo $rowp['seleccion2'];  ?>
                                 </label>
                             </div>
                             <div class="form-check-inline disabled">
                                 <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="optradio" value="<?php echo "$rowp->seleccion3";  ?>"><?php echo "$rowp->seleccion3";  ?>
+                                    <input type="radio" class="form-check-input" name="optradio" value="<?php echo $rowp['seleccion3'];  ?>"><?php echo $rowp['seleccion3'];  ?>
                                 </label>
                             </div>
                     <?php
