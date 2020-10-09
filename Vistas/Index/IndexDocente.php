@@ -1,110 +1,110 @@
 <?php 
   include "../../Share/header.php";
-  include "../../Share/conexion.php";
-//   include('../../Share/validar.php');
+  
+  include '../../Share/funciones.php';
 ?>
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
         <!-- Panel de ofertas  -->
-        <div class="row">
-            <ul class="nav nav-tabs  col-12" id="myTab" role="tablist">
-                <li class="nav-item" role="presentation">
-                <a class="nav-link active" id="activas-tab" data-toggle="tab" href="#activas" role="tab" aria-controls="activas" aria-selected="true">Ofertas Activas</a>
-                </li>
-                <li class="nav-item" role="presentation">
-                <a class="nav-link" id="espera-tab" data-toggle="tab" href="#espera" role="tab" aria-controls="espera" aria-selected="false">Ofertas En espera</a>
-                </li>
-                <li class="nav-item" role="presentation">
-                <a class="nav-link" id="rechazada-tab" data-toggle="tab" href="#rechazada" role="tab" aria-controls="rechazada" aria-selected="false">Ofertas Rechazadas</a>
-                </li>
-            </ul>
-         <div class="tab-content col-12" id="myTabContent">
-            <div class="tab-pane fade show active" id="activas" role="tabpanel" aria-labelledby="activas-tab">
-                <div class="card card-body">
-                    <?php
-                            $conn =OpenCon();
-                            $idSuc= $_SESSION["id"];
-                            $sql="SELECT o.idCupon as id,o.tituloOferta as titulo, s.nombreSucursal as sucursal, o.precioRegular, o.precioOferta, e.definirEstado as estado, o.descripcion, o.fechaInicio, o.fechaFin, o.fechaLimite  FROM tblCupones o
-                            INNER JOIN tblSucursales s ON o.idSucursal = s.idSucursal
-                            INNER JOIN tblEstadosCupon e ON o.estado=e.idEstadoCupon WHERE o.estado=2 AND s.idSucursal = $idSuc";
-                            echo "<div class='row col-12'>";
-                            //Imprecion de formulario
-                            foreach($conn->query($sql) as $row){
-                                echo "<div class='card col-sm-12 col-md-3' >";
-                                echo "<div class='card-header bg-info'> <h4 class='text-center'>OFERTA ACTIVA</h4></div>";
-                                // echo "<div class='card-body'>".$row["fechaInicio"].$row["fechaFin"]."</div>";
-                                    echo "<div class='card-body '>";
-                                    echo "<h6 class='h6 font-weight-bold text-center'>".$row["titulo"]."</h6><hr>";
-                                    echo "<h6 class'h6'> <b>Rango de fechas:</b> del ".$row["fechaInicio"]." al ".$row["fechaFin"]."</h6>";
-                                    echo "</div>";
-                                    echo "<div class='card-footer text-center font-weight-bold'> Ultima Fecha de Canje: ".$row["fechaLimite"]." <br>";
-                                    echo "<a type='submit'  href=\"../Ofertas/info_oferta.php?codigo=".$row["id"]."\" class='fas fa-eye btn btn-sm btn-outline-info text-center btn-block' title='Ver'>Ver Oferta</a></div>";
-                                    echo "</div>";
-                                    // }
-                                }
-                            echo "</div>";
-                                CloseCon($conn);
-                    ?>
+        <div class="row col-12">
+            <div class="col-md-4 col-sm-12">
+              <!-- small box -->
+              <div class="small-box bg-success">
+                <div class="inner">
+                  <h2 class="font-weight-bold">Evaluaciones Aprobadas</h2>
+                  <h3><?php
+                    if(evalDeUnDocente($_SESSION["id"])!=0){
+                        echo (activAprobadas($_SESSION["id"])/evalDeUnDocente($_SESSION["id"]))*100; 
+                        } else { echo 0;} ?><sup style="font-size: 20px">%</sup></h3>
                 </div>
-            </div>
-            <div class="tab-pane fade  col-12" id="espera" role="tabpanel" aria-labelledby="espera-tab">
-                <div class="card card-body">
-                    <?php
-                            $conn =OpenCon();
-                            $idSuc= $_SESSION["id"];
-                            $sql="SELECT o.idCupon as id,o.tituloOferta as titulo, s.nombreSucursal as sucursal, o.precioRegular, o.precioOferta, e.definirEstado as estado, o.descripcion, o.fechaInicio, o.fechaFin, o.fechaLimite  FROM tblCupones o
-                            INNER JOIN tblSucursales s ON o.idSucursal = s.idSucursal
-                            INNER JOIN tblEstadosCupon e ON o.estado=e.idEstadoCupon WHERE o.estado=1 AND s.idSucursal = $idSuc";
-                            
-                            echo "<div class='row col-12'>";
-                            //Imprecion de formulario
-                            foreach($conn->query($sql) as $row){
-                                echo "<div class='card col-sm-12 col-md-3' >";
-                                echo "<div class='card-header bg-warning'> <h4 class='text-center'>OFERTA EN ESPERA</h4></div>";
-                                // echo "<div class='card-body'>".$row["fechaInicio"].$row["fechaFin"]."</div>";
-                                    echo "<div class='card-body '>";
-                                    echo "<h6 class='h6 font-weight-bold text-center'>".$row["titulo"]."</h6><hr>";
-                                    echo "<h6 class'h6'> <b>Rango de fechas:</b> del ".$row["fechaInicio"]." al ".$row["fechaFin"]."</h6> <br>";
-                                    echo "</div>";
-                                    echo "<div class='card-footer text-center font-weight-bold'> Ultima Fecha de Canje: ".$row["fechaLimite"]." <br>";
-                                    echo "<a type='submit'  href=\"../Ofertas/info_oferta.php?codigo=".$row["id"]."\" class='fas fa-eye btn btn-sm btn-outline-info text-center btn-block' title='Ver'>Ver Oferta</a></div>";
-                                    echo "</div>";
-                                    // }
-                            }
-                            echo "</div>";
-                            CloseCon($conn);
-                    ?>
+                <div class="icon">
+                  <i class="ion ion-checkmark"></i>
                 </div>
+                <div class="progress">
+                  <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" aria-valuenow=" <?php echo (activAprobadas($_SESSION["id"])/evalDeUnDocente($_SESSION["id"]))*100 ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo (alumnosAprobados($_SESSION["id"])/evalDeUnEstudiante($_SESSION["id"]))*100 ?>%">
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="tab-pane fade  col-12" id="rechazada" role="tabpanel" aria-labelledby="rechazada-tab">
-                <div class="card card-body">
-                    <?php
-                            $conn =OpenCon();
-                            $idSuc= $_SESSION["id"];
-                            $sql="SELECT o.idCupon as id,o.tituloOferta as titulo, s.nombreSucursal as sucursal, o.precioRegular, o.precioOferta, e.definirEstado as estado, o.descripcion, o.fechaInicio, o.fechaFin, o.fechaLimite  FROM tblCupones o
-                            INNER JOIN tblSucursales s ON o.idSucursal = s.idSucursal
-                            INNER JOIN tblEstadosCupon e ON o.estado=e.idEstadoCupon WHERE o.estado=3 AND s.idSucursal = $idSuc";
-                            
-                            echo "<div class='row col-12'>";
-                            //Imprecion de formulario
-                            foreach($conn->query($sql) as $row){
-                                echo "<div class='card col-sm-12 col-md-3' >";
-                                echo "<div class='card-header bg-danger'> <h4 class='text-center'>OFERTA RECHAZADA</h4></div>";
-                                // echo "<div class='card-body'>".$row["fechaInicio"].$row["fechaFin"]."</div>";
-                                    echo "<div class='card-body '>";
-                                    echo "<h6 class='h6 font-weight-bold text-center'>".$row["titulo"]."</h6><hr>";
-                                    echo "<h6 class'h6'> <b>Rango de fechas:</b> del ".$row["fechaInicio"]." al ".$row["fechaFin"]."</h6> <br>";
-                                    echo "</div>";
-                                    echo "<div class='card-footer text-center font-weight-bold'> Ultima Fecha de Canje: ".$row["fechaLimite"]." <br>";
-                                    echo "<a type='submit'  href=\"../Ofertas/info_oferta.php?codigo=".$row["id"]."\" class='fas fa-eye btn btn-sm btn-outline-info text-center btn-block' title='Ver'>Ver Oferta</a></div>";
-                                    echo "</div>";
-                                    // }
-                                }
+            <div class="col-md-4 col-sm-12">
+              <!-- small box -->
+              <div class="small-box bg-danger">
+                <div class="inner">
+                  <h2  class="font-weight-bold">Evaluaciones Repobadas</h2>
+                  <h3><?php 
+                   if(evalDeUnDocente($_SESSION["id"])!=0) { 
+                       echo (activReprobadas($_SESSION["id"])/evalDeUnDocente($_SESSION["id"]))*100;
+                    }else{echo 0;} ?><sup style="font-size: 20px">%</sup></h3>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-close"></i>
+                </div>
+                <div class="progress">
+                  <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" aria-valuenow=" <?php echo (activReprobadas($_SESSION["id"])/evalDeUnDocente($_SESSION["id"]))*100 ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo (alumnosReprobados($_SESSION["id"])/evalDeUnEstudiante($_SESSION["id"]))*100 ?>%"></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 col-sm-12">
+              <!-- small box -->
+              <div class="small-box bg-info">
+                <div class="inner">
+                  <h2  class="font-weight-bold">Evaluaciones Totales</h2>
+                  <h3><?php 
+                   if(evalDeUnDocente($_SESSION["id"])!=0) { 
+                       echo evalDeUnDocente($_SESSION["id"]);
+                    }else{echo 0;} ?><sup style="font-size: 20px"></sup></h3>
+                </div>
+                <div class="icon">
+                  <i class="fas fa-file"></i>
+                </div>
+                <div class="progress">
+                  <div class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+                </div>
+              </div>
+            </div>
+        </div>
+        <div class="row col-12">
+                <div class="col-12">
+                    <hr>
+                    <h3 class="text-center "><b>Evaluaciones Activas</b></h3>
+                    <hr>
+                </div>
+
+                <?php
+                    $conn =OpenCon();
+                    //para fehas
+                    $fecha_actual = date("Y-m-d");
+                    $idDocente=$_SESSION["id"];
+
+                    //Consulta e evaluacion
+                    if(evalDeUnDocente($idDocente)!=null){
+                    $sql="SELECT * FROM tblEvaluaciones WHERE idDocente =$idDocente ";
+                    
+                    foreach( $conn->query($sql) as $row){
+                         $fecha = $row["fecha"];
+                    if($fecha >= $fecha_actual){
+                        echo "<div class='card col-sm-12 col-md-4' >";
+                                echo "<div class='card-header bg-success'> 
+                                        <h4 class='text-center'>Evaluación Activa</h4>
+                                        <h5 class='text-center'><b>Codigo : </b>".$row["codigo"]."</h5>
+                                    </div>";
+                                echo "<div class='card-body '>";
+                                    echo "<h6 class='h5 text-center font-weight-bold'> Fecha a Realizar: ".$row["fecha"]."</h6>";
+                                    echo "<p class='text-lg-justify'><b>ACTIVIDAD! </b>".$row["indicaciones"]."</p> <hr>";
                                 echo "</div>";
-                                CloseCon($conn);
-                    ?>
-                </div>
+                        echo "</div>";
+                    }
+                                    
+                    }
+                }else{
+                        echo "<div class='col-12 bg-warning'>
+                            <h3 class='text-center'><b>NO POSEE ACTIVIDADES!!</b> </h3>
+                        </div>";
+                    }
+                
+
+                ?>
             </div>
         </div>
         <?php
