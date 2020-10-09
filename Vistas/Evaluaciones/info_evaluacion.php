@@ -9,7 +9,7 @@
         //extraemos datos
         $id=$_GET["codigo"];
          //consulta de Actividades Realizadas
-        $sqlAR=$sql="SELECT ea.idEvaluacionAlumno , ea.nota, a.alumnoNombre, a.alumnoApellido, ea.estado, e.idEvaluacion,e.codigo, e.fecha, e.idDocente, e.indicaciones FROM tblEvaluacionAlumno ea
+        $sql="SELECT ea.idEvaluacionAlumno , ea.nota, a.alumnoNombre, a.alumnoApellido, ea.estado, e.idEvaluacion,e.codigo, e.fecha, e.idDocente, e.indicaciones FROM tblEvaluacionAlumno ea
         INNER JOIN tblAlumnos a ON ea.idAlumno= a.idAlumno 
         INNER JOIN tblEvaluaciones e ON ea.idEvaluacion = e.idEvaluacion WHERE ea.idEvaluacion = ?";
         $stmm = $conn->prepare($sql);
