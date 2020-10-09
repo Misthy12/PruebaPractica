@@ -75,7 +75,7 @@
                                 if($_SESSION["login"] ="Docente"){
                                     echo "<a href='../Index/IndexDocente.php' class='btn btn-warning ' style='margin-left:3px'>Regresar</a>";
                                 }else{
-                                    echo "<a href='../Docentes/listado_Docentes.php' class='btn btn-warning ' style='margin-left:3px'>Regresar</a>";
+                                    echo "<a href='../Docentes/listado_Docentes.php' class='btn btn-warning '>Regresar</a>";
                                 }
                             ?>
                         
