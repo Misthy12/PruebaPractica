@@ -6,7 +6,7 @@
          //consulta a bd
          $conn=OpenCon();
  
-         //consulta de Num de cupones
+         //consulta de Num de alumnos
          $stmt = $conn->prepare("SELECT idAlumno FROM tblAlumnos");
          $stmt->execute();
          $count=$stmt->rowCount();
@@ -18,7 +18,7 @@
          //consulta a bd
          $conn=OpenCon();
  
-         //consulta de Num de cupones
+         //consulta de Num de evaluaciones
          $stmt = $conn->prepare("SELECT idEvaluacion FROM tblEvaluaciones");
          $stmt->execute();
          $count=$stmt->rowCount();
@@ -30,7 +30,7 @@
          //consulta a bd
          $conn=OpenCon();
  
-         //consulta de Num de cupones
+         //consulta de Num de usuarios
          $stmt = $conn->prepare("SELECT idUsuario FROM tblUsuarios");
          $stmt->execute();
          $count=$stmt->rowCount();
@@ -41,7 +41,7 @@
          //consulta a bd
          $conn=OpenCon();
  
-         //consulta de Num de cupones
+         //consulta de Num de docentes
          $stmt = $conn->prepare("SELECT idDocente FROM tblDocentes");
          $stmt->execute();
          $count=$stmt->rowCount();
@@ -49,6 +49,7 @@
          CloseCon($conn);
     }
 
+    //genera codigo de evluacion
     function generarCodigo($longitud) {
         $key = '';
         $letras = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -63,12 +64,13 @@
             return $key;
         
        }
-
+     
+     //numero de aprobados de una evaluacion
      function aprobados($id){
           //consulta a bd
          $conn=OpenCon();
  
-         //consulta de Num de cupones
+         //consulta de Num de aprobados de eval
          $stmt = $conn->prepare("SELECT idEvaluacion FROM tblevaluacionalumno WHERE estado='Aprobado' AND idEvaluacion=$id");
          $stmt->execute();
          $count=$stmt->rowCount();
@@ -76,11 +78,12 @@
          CloseCon($conn);
      }
 
+     //numero de reprobados de una evaluacion
      function reprobados($id){
           //consulta a bd
          $conn=OpenCon();
  
-         //consulta de Num de cupones
+         //consulta de Num de reprobados de una evaluacion
          $stmt = $conn->prepare("SELECT idEvaluacion FROM tblevaluacionalumno WHERE estado='Reprobado' AND idEvaluacion=$id");
          $stmt->execute();
          $count=$stmt->rowCount();
@@ -88,11 +91,12 @@
          CloseCon($conn);
      }
      
+     //informacion de un docente
      function docentesParaInfoEval($id){
           //consulta a bd
          $conn=OpenCon();
  
-         //consulta de Num de cupones
+         //consulta 
          $stmt = $conn->prepare("SELECT * FROM tblDocentes WHERE idDocente=$id");
          $stmt->execute();
          $rowE=$stmt->fetchAll(PDO::FETCH_OBJ);
@@ -103,11 +107,12 @@
          CloseCon($conn);
      }
 
+     //numero de aprobados de un alumno
      function alumnosAprobados($id){
           //consulta a bd
          $conn=OpenCon();
  
-         //consulta de Num de cupones
+         //consulta de Num de aprobados de alumno
          $stmt = $conn->prepare("SELECT idEvaluacion FROM tblevaluacionalumno WHERE estado='Aprobado' AND idAlumno=$id");
          $stmt->execute();
          $count=$stmt->rowCount();
@@ -115,15 +120,76 @@
          CloseCon($conn);
      }
      
+     //Numero de reprobados de un alumno
      function alumnosReprobados($id){
           //consulta a bd
          $conn=OpenCon();
-         //consulta de Num de cupones
+         //consulta de Num de reporbados de alumno
          $stmt = $conn->prepare("SELECT idEvaluacion FROM tblevaluacionalumno WHERE estado='Reprobado' AND idAlumno=$id");
          $stmt->execute();
          $count=$stmt->rowCount();
          return($count);
          CloseCon($conn);
      }
+     
+     //Numero de evaluaciones realizadas por un alumno
+     function evalDeUnEstudiante($id){
+          //consulta a bd
+         $conn=OpenCon();
+         //consulta de Num de eval de alumno
+         $stmt = $conn->prepare("SELECT idEvaluacion FROM tblevaluacionalumno WHERE idAlumno=$id");
+         $stmt->execute();
+         $count=$stmt->rowCount();
+         return($count);
+         CloseCon($conn);
+     }
+
+     //Numero de reprobados de una evaluacion de un docente
+     function activReprobadas($id){
+          //consulta a bd de docente para extraer el id de eval
+         $conn=OpenCon();
+         $sql=$conn->prepare("SELECT *FROM tblEvaluaciones WHERE idDocente = $id");
+         $sql->execute();
+         $rowE=$sql->fetchAll(PDO::FETCH_OBJ);
+         foreach($rowE as $rowE){}
+          $eval=$rowE->idEvaluacion;
+
+          //consulta de Num de eval reprobed
+          $stmt = $conn->prepare("SELECT idEvaluacion FROM tblevaluacionalumno WHERE estado='Reprobado' AND idEvaluacion=$eval");
+          $stmt->execute();
+          $count=$stmt->rowCount();
+          return($count);
+          // CloseCon($conn);
+     }
+     
+     //Numero de aprobados de una evaluacion de un docente
+     function activAprobadas($id){
+           //consulta a bd de docente para extraer el id de eval
+         $conn=OpenCon();
+         $sql=$conn->prepare("SELECT *FROM tblEvaluaciones WHERE idDocente = $id");
+         $sql->execute();
+         $rowE=$sql->fetchAll(PDO::FETCH_OBJ);
+         foreach($rowE as $rowE){}
+         $eval=$rowE->idEvaluacion;
+          //consulta de Num de aproved
+           $stmt = $conn->prepare("SELECT idEvaluacion FROM tblevaluacionalumno WHERE estado='Aprobado' AND idEvaluacion=$eval");
+               $stmt->execute();
+               $count=$stmt->rowCount();
+               return($count);
+               CloseCon($conn);
+          
+     }
+     //Numero de aprobados de una evaluacion de un docente
+     function evalDeUnDocente($id){
+          //consulta a bd
+         $conn=OpenCon();
+         //consulta de Num de aproved
+         $stmt = $conn->prepare("SELECT idEvaluacion FROM tblEvaluaciones WHERE  idDocente=$id");
+         $stmt->execute();
+         $count=$stmt->rowCount();
+         return($count);
+         CloseCon($conn);
+     }
+     
 
 ?>
