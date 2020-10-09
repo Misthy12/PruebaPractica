@@ -1,8 +1,7 @@
 <?php
 include "../../Share/header.php";
 include "../../Share/conexion.php";
-require '../../Share/PhpMailer/src/PHPMailer.php';
-require '../../Share/PhpMailer/src/SMTP.php';
+include "../../Share/enviarCorreo.php";
 
 ?>
     <title>Alumno</title>
@@ -104,24 +103,8 @@ require '../../Share/PhpMailer/src/SMTP.php';
                                 </script>";
 
                                 //envio de correo
-                                $mail=new PHPMailer();
-                                $mail->CharSet = 'UTF-8';
-                                $body = "".$_POST["nombre"]." ".$_POST["apellido"].". Sus Credenciales de Ingreso a nuestro portal con el usuario: ".$_POST["nombreUsuario"]." y contraseña: ".$_POST["clave"]." Gracias por preferirnos!";
-                                $mail->IsSMTP();
-                                $mail->Host       = 'smtp.gmail.com';
-                                $mail->SMTPSecure = 'tls';
-                                $mail->Port       = 587;
-                                $mail->SMTPDebug  = 1;
-                                $mail->SMTPAuth   = true;
-                                $mail->Username   = 'kanfevaluaciones@gmail.com';
-                                $mail->Password   = 'Kanf12345678';
-                                $mail->SetFrom('Kanfevaluaciones@info.com', "KANF Evaluaciones");
-                                $mail->AddReplyTo('no-reply@info.com','no-reply');
-                                $mail->Subject    = 'Credenciales Registro';
-                                $mail->MsgHTML($body);
-
-                                $mail->AddAddress($_POST["correo"]);
-                                $mail->send();
+                                $nombre=$_POST["nombre"]." ".$_POST["apellido"];
+                                correoUsuario($_POST["correo"],$_POST["nombreUsuario"],$_POST["clave"],$nombre);
 
                             }else{
                                 Print"<script>
