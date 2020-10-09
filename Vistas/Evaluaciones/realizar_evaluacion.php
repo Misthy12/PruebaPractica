@@ -74,7 +74,7 @@ if (isset($_POST["btnEvaluacion"])) {
 
                             <div class="form-check-inline">
                                 <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="optradio1" value="<?php echo $rowp['seleccion1']; ?>"><?php echo $rowp['seleccion1'];?>
+                                    <input type="radio" class="form-check-input" name="optradio" value="<?php echo $rowp['seleccion1']; ?>"><?php echo $rowp['seleccion1'];?>
                                 </label>
                             </div>
                             <div class="form-check-inline">
