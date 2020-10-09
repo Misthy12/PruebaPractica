@@ -9,157 +9,136 @@ $sqlTipo = "SELECT * FROM tbltipopreguntas";
 CloseCon($conn);
 ?>
 <title>Evaluaciones</title>
-<div class="col-sm-12">
-    <div class="card">
-        <div class="card-header bg-success">
-            <h4 class="text-center">Agregar Evaluación</h4>
+<div class="jumbotrong bg-white col-sm-12 col-md-12">
+    <div class=" ">
+        
+        <h4 class="text-center text-uppercase font-weight-bold">Datos de Evaluación</h4>
+        <hr>
+        <div class="row col-12 form-group">           
+            <div class="col-md-2 col-sm-12">
+                <label for="codigo" class="control-label ">Codigo</label>
+                <input class="form-control" type="text" name="codigo" readonly id="codigo" value="<?php echo generarCodigo(4) ?>" required />
+            </div>
+            <div class="col-md-3 col-sm-12">
+                <label for="Fecha" class="control-label">Fecha</label>
+                <input class="form-control" type="date" name="Fecha" id="Fecha" value="" />
+            </div>
+            <div class="col-md-3 col-sm-12">
+                <label for="rol" class="control-label ">Docente</label>
+                <select name="idDocente" id="idDocente" type="text" class="form-control" required>
+                    <?php
+                        foreach ($conn->query($sqlDocentes) as $valord) {
+                        echo "<option value='" . $valord["idDocente"] . "'>" . $valord["docenteNombre"] . " " . $valord["docenteApellido"] . "</option>";
+                        }
+                    ?>
+                </select>
+            </div>
+            <div class="col-md-4 col-sm-12">
+                <label for="Indicaciones" class="control-label">Indicaciones</label>
+                <textarea class="form-control" id="Indicaciones" name="Indicaciones" rows="2"></textarea>
+                <input class="form-control" type="hidden" name="idEvaluacion" id="idEvaluacion" />
+            </div>              
         </div>
-        <div class="card-body">
-            <div class="col-sm-12">
-                <div class="card">
-                    <div class="card-header bg-primary">
-                        <h4 class="text-center">Evaluación</h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="form-group col-4">
-                                <label class="control-label col-md-3">Codigo</label>
-                                <div class="col-md-9">
-                                    <input class="form-control" type="text" name="codigo" readonly id="codigo" value="<?php echo generarCodigo(4) ?>" placeholder="Ingrese un Codigo" required />
-                                </div>
-                            </div>
-                            <div class="form-group col-4">
-                                <label class="control-label col-md-3">Fecha</label>
-                                <div class="col-md-9">
-                                    <input class="form-control" type="date" name="Fecha" id="Fecha" value="" />
-                                </div>
-                            </div>
-                            <div class="form-group col-4">
-                                <label for="rol" class="control-label col-md-3">Docente</label>
-                                <div class="col-md-9">
-                                    <select name="idDocente" id="idDocente" type="text" class="form-control" required>
-                                        <?php
-                                        foreach ($conn->query($sqlDocentes) as $valord) {
-                                            echo "<option value='" . $valord["idDocente"] . "'>" . $valord["docenteNombre"] . " " . $valord["docenteApellido"] . "</option>";
-                                        }
-                                        ?>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group col-12">
-                                <label class="control-label col-md-3">Indicaciones</label>
-                                <textarea class="form-control" id="Indicaciones" name="Indicaciones" rows="2"></textarea>
+        <div class="row col-12 form-group">
+            <div class="col-12 ">
+                <hr>
+                 <h5 class="text-center text-uppercase font-weight-bold">Preguntas</h5>
+                <hr>
+            </div>
+            
+                <div class="col-md-3 col-sm-12">
+                    <label class="control-label " for="idTipo">Tipo</label>
+                    <select name="idTipo" id="idTipo" type="text" class="form-control" required>
+                        <option value="">.:Seleccione:.</option>
+                        <?php
+                            foreach ($conn->query($sqlTipo) as $valorp) {
+                                echo "<option value='" . $valorp["idTipo"] . "'>" . $valorp["tipo"] . "</option>";
+                            }
+                        ?>
+                    </select>
+                </div>
 
-                            </div>
-                            <div class="col-md-9">
-                                <input class="form-control" type="hidden" name="idEvaluacion" id="idEvaluacion" />
-                            </div>
-                        </div>
+                <div class="col-md-8 col-sm-12">
+                    <label class="control-label" for="pregunta" for="pregunta">Pregunta</label>
+                    <input class="form-control" type="text" name="pregunta" id="pregunta" value="" placeholder="Ingrese la pregunta" required />
+                </div>
+                <div class="col-md-1 col-sm-12">
+                 <button title="Agregar Pregunta" class="btn btn-warning" name="btnAgregar" id="btnAgregar"><i class="fa fa-plus"></i></button>
+                </div>
+
+
+            <div id="FormTrueFalse" style="display: none;" class="col-md-12 col-sm-12">
+            <br>
+                <label for="Respuesta" class="control-label ">Respuesta</label>
+                <select name="Respuesta" id="Respuesta" class="form-control col-md-4 col-sm-12">
+                    <option value="">.:Seleccione:.</option>
+                    <option value="Verdadero">Verdadero</option>
+                    <option value="Falso">Falso</option>
+                </select>
+            </div>
+
+
+            <div id="FormMultiple" style="display: none;" class="col-md-12 col-sm-12">
+                <br>
+                <label for="RespuestaV" class="control-label">Respuestas</label>
+                <div class="row col-12">
+                    <input class="form-control col-md-3 col-sm-12" type="text" name="RespuestaV" id="RespuestaV" value="" placeholder="Ingrese la Respuesta Correcta" />
+                    <input class="form-control col-md-3 col-sm-12" type="text" name="RespuestaF1" id="RespuestaF1" value="" placeholder="Ingrese la Respuesta Incorrecta" />                            
+                    <input class="form-control col-md-3 col-sm-12" type="text" name="RespuestaF2" id="RespuestaF2" value="" placeholder="Ingrese la Respuesta Incorrecta" />
+                    <input class="form-control col-md-3 col-sm-12" type="text" name="RespuestaF3" id="RespuestaF3" value="" placeholder="Ingrese la Respuesta Incorrecta" />
+                </div>
+            </div>
+            <div class="col-12">
+            <br>
+            <br>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="col-10"><h5 class="text-center text-uppercase font-weight-bold">Detalles Evaluacion</h5></th>
+                            <th class="col-1"><button title="Guardar Evaluacion" class="btn btn-success" name="btnGuardar" id="btnGuardar"> <i class="fas fa-save"></i></button></th>
+                            <th class="col-1"><a href="listado_evaluaciones.php" title="Cancelar" class="btn btn-danger"><i class="fas fa-times"></i></a></th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+                <div class="card-body " style="overflow-x:scroll">
+                    <!-- Date -->
+                    <div class="table-responsive">
+                        <table id="TablaCL" class="table table-bordered table-dark table-striped">
+                            <thead  class="">
+                                <tr class="text-center">
+                                    <th>N°</th>
+                                    <th>Tipo</th>
+                                    <th>Pregunta</th>
+                                    <th>Respuesta</th>
+                                    <th hidden>Incorrecta1</th>
+                                    <th hidden>Incorrecta2</th>
+                                    <th hidden>Incorrecta3</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="fila">
+
+                                <tr hidden>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+
+                                </tr>
+                            </tbody>
+
+                        </table>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-sm-12">
-            <div class="card">
-                <div class="card-header bg-primary">
-                    <h4 class="text-center">Preguntas</h4>
-                    <button title="Agregar Pregunta" class="btn btn-warning" name="btnAgregar" id="btnAgregar"><i class="fa fa-plus"></i></button>
-                </div>
-                <div class="card-body">
-                    <div class="row col-12">
-                        <div class="form-group col-md-3 col-sm-12">
-                            <label class="control-label col-md-3 col-sm-12" for="idTipo">Tipo</label>
-                            <select name="idTipo" id="idTipo" type="text" class="form-control col-sm-12" required>
-                                <option value="">.:Seleccione:.</option>
-                                <?php
-                                foreach ($conn->query($sqlTipo) as $valorp) {
-                                    echo "<option value='" . $valorp["idTipo"] . "'>" . $valorp["tipo"] . "</option>";
-                                }
-                                ?>
-                            </select>
-                        </div>
-                        <div class="form-group col-md-9 col-sm-12">
-                            <label class="control-label col-md-3 col-sm-12" for="pregunta">Pregunta</label>
-                            <div class="col-md-9 col-sm-12">
-                                <input class="form-control" type="text" name="pregunta" id="pregunta" value="" placeholder="Ingrese la pregunta" required />
-                            </div>
-
-                        </div>
-                    </div>
-
-
-                    <div id="FormTrueFalse" style="display: none;" class="form-group  col-12">
-                        <label for="Respuesta" class="col-md-3 col-sm-12">Respuesta</label>
-                        <select name="Respuesta" id="Respuesta" class="form-control col-md-4 col-sm-12">
-                            <option value="">.:Seleccione:.</option>
-                            <option value="Verdadero">Verdadero</option>
-                            <option value="Falso">Falso</option>
-                        </select>
-                    </div>
-
-
-                    <div id="FormMultiple" style="display: none;" class="row form-group  col-12">
-                        <label for="RespuestaV" class="col-md-12">Respuesta</label>
-                        <div class="row">
-                            <input class="form-control col-md-3" type="text" name="RespuestaV" id="RespuestaV" value="" placeholder="Ingrese la Respuesta Correcta" />
-                            <input class="form-control col-md-3" type="text" name="RespuestaF1" id="RespuestaF1" value="" placeholder="Ingrese la Respuesta Incorrecta" />
-                            <input class="form-control col-md-3" type="text" name="RespuestaF2" id="RespuestaF2" value="" placeholder="Ingrese la Respuesta Incorrecta" />
-                            <input class="form-control col-md-3" type="text" name="RespuestaF3" id="RespuestaF3" value="" placeholder="Ingrese la Respuesta Incorrecta" />
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-12">
-        <div class="card">
-            <div class="card-header bg-primary">
-                <h4 class="text-center">Detalles Evaluacion</h4>
-                <div class="offset-md-10 col-md-2">
-                    <button title="Guardar Evaluacion" class="btn btn-success" name="btnGuardar" id="btnGuardar"> <i class="fas fa-save"></i></button>
-                    <a href="listado_evaluaciones.php" title="Cancelar" class="btn btn-default"><i class="fas fa-times"></i></a>
-                </div>
-            </div>
-            <div class="card-body " style="overflow-x:scroll">
-                <!-- Date -->
-                <div class="table-responsive">
-                    <table id="TablaCL" class="table table-bordered ">
-                        <thead>
-                            <tr>
-                                <th>N</th>
-                                <th>Tipo</th>
-                                <th>Pregunta</th>
-                                <th>Respuesta</th>
-                                <th hidden>Incorrecta1</th>
-                                <th hidden>Incorrecta2</th>
-                                <th hidden>Incorrecta3</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody id="fila">
-
-                            <tr hidden>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-
-                            </tr>
-                        </tbody>
-
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-</div>
-
+        </div><!-- </div> row col-12 form-group -->
+    </div><!-- </div> bgWhite -->
+</div><!-- </div> jumbotrond -->
 <div class="card-footer">
     <!-- ENVIO DE DATOS -->
     <?php

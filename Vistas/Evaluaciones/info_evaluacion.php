@@ -102,8 +102,8 @@
                     ?>
                 </div>
             </div>
-            </div>
-            <div class="tab-pane fade  col-12" id="reprobadas" role="tabpanel" aria-labelledby="reprobadas-tab">
+        
+            <div class="tab-pane fade col-12" id="reprobadas" role="tabpanel" aria-labelledby="reprobadas-tab">
                 <div class="card card-body">
                 <?php
                             $conn =OpenCon();

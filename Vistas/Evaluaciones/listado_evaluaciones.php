@@ -1,5 +1,6 @@
 <?php
 include("../../Share/header.php");
+include '../../Share/funciones.php';
 ?>
     <title>Evaluaciones</title>
     
@@ -21,15 +22,15 @@ include("../../Share/header.php");
 
             <!-- Consulta a la base de datos -->
             <?php
-            include '../../Share/conexion.php';
+            
             $conn =OpenCon();
             //id docente
             $docente= $_SESSION["id"];
             if($_SESSION["login"]=="Docente"){
-                $sql="SELECT e.idEvaluacion as id, e.codigo, e.fecha, e.idDocente, d.docenteNombre as nombre, d.docenteApellido as apellido FROM tblEvaluaciones e
+                $sql="SELECT e.idEvaluacion as id, e.codigo, e.fecha, e.idDocente, d.docenteNombre as nombre, d.docenteApellido as apellido, e.indicaciones FROM tblEvaluaciones e
                     INNER JOIN tblDocentes d ON e.idDocente = d.idDocente WHERE e.idDocente=$docente";
             }else{
-            $sql="SELECT e.idEvaluacion as id, e.codigo, e.fecha, e.idDocente, d.docenteNombre as nombre, d.docenteApellido as apellido FROM tblEvaluaciones e
+            $sql="SELECT e.idEvaluacion as id, e.codigo, e.fecha, e.idDocente, d.docenteNombre as nombre, d.docenteApellido as apellido, e.indicaciones FROM tblEvaluaciones e
                     INNER JOIN tblDocentes d ON e.idDocente = d.idDocente";
                     }
             ?>
@@ -40,7 +41,8 @@ include("../../Share/header.php");
                             <th>N°</th>
                             <th>Codigo</th>
                             <th>Docente</th>
-                            <th>Fecha realizacion</th>
+                            <th>Fecha</th>
+                            <th>Indicacion</th>
                             <th>Opciones</th>
                         </tr>
                     </thead>
@@ -53,9 +55,12 @@ include("../../Share/header.php");
                                     echo "<td>".$row["codigo"]."</td>";
                                     echo "<td>".$row["nombre"]." ".$row["apellido"]."</td>"; 
                                     echo "<td>".$row["fecha"]."</td>";
+                                    echo "<td>".$row["indicaciones"]."</td>";
                                     echo "<td>";
                                         echo "<a class='btn btn-sm btn-warning' href=\"../Evaluaciones/editar_evaluacion.php?codigo=". $row["id"]."\" ><i class='fas fa-edit'></i></a> \n";
+                                        if(actividadRealizada($row["id"])!=null){
                                         echo "<a class='btn btn-sm btn-info' href=\"../Evaluaciones/info_evaluacion.php?codigo=". $row["id"]."\" ><i class='fas fa-info'></i></a> \n";
+                                        }
                                         echo "<a class=\"btn btn-sm btn-danger\" href=\"./eliminar_evaluacion.php?codigo=". $row["id"]."\"><i class=\"far fa-trash-alt\"></i></a>";
                                     echo "</td>";
                                 echo "</tr>";
