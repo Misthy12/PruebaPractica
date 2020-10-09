@@ -91,6 +91,19 @@
          CloseCon($conn);
      }
      
+     //numero de reprobados de una evaluacion
+     function actividadRealizada($id){
+          //consulta a bd
+         $conn=OpenCon();
+ 
+         //consulta de Num de reprobados de una evaluacion
+         $stmt = $conn->prepare("SELECT idEvaluacion FROM tblevaluacionalumno WHERE idEvaluacion=$id");
+         $stmt->execute();
+         $count=$stmt->rowCount();
+         return($count);
+         CloseCon($conn);
+     }
+     
      //informacion de un docente
      function docentesParaInfoEval($id){
           //consulta a bd
