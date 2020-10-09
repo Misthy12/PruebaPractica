@@ -229,6 +229,18 @@
          return($count);
          CloseCon($conn);
      }
+
+     //existencia de preguntas en evaluacion
+     function preguntasActiv($id){
+          //consulta a bd
+         $conn=OpenCon();
+         //consulta de Num de aproved
+         $stmt = $conn->prepare("SELECT idEvaluacion FROM tblPreguntas WHERE  idEvaluacion=$id");
+         $stmt->execute();
+         $count=$stmt->rowCount();
+         return($count);
+         CloseCon($conn);
+     }
      
 
 ?>
