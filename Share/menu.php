@@ -74,6 +74,12 @@
                   <p>Mis Evaluaciones</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="../../Vistas/Evaluaciones/realizar_evaluacion.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Realizar Evaluacion</p>
+                </a>
+              </li>
             </ul>
           </li>
           <li class="nav-item has-treeview">
