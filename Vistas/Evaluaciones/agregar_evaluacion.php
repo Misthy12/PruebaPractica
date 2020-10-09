@@ -51,7 +51,9 @@ CloseCon($conn);
                                 <textarea class="form-control" id="Indicaciones" name="Indicaciones" rows="2"></textarea>
 
                             </div>
-                            <div class="row"></div>
+                            <div class="col-md-9">
+                                <input class="form-control" type="hidden" name="idEvaluacion" id="idEvaluacion" />
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -161,49 +163,6 @@ CloseCon($conn);
 <div class="card-footer">
     <!-- ENVIO DE DATOS -->
     <?php
-    if (isset($_POST["submit"])) {
-        //verificar la conexion
-        if ($conn == null) {
-            die("No se ha podido conectar con la base de datos :(");
-        }
-
-        if ($_POST["codigo"] != "" && $_POST["fecha"] != "" && $_POST["docente"] != "") {
-
-            $sqlEvaluacion = "INSERT INTO tblEvaluaciones(codigo, fecha, idDocente, indicaciones) VALUES ('" . $_POST["codigo"] . "','" . $_POST["fecha"] . "','" . $_POST["docente"] . "','" . $_POST["Indicaciones"] . "')";
-            $count = $conn->exec($sqlEvaluacion);
-            $idEval = $conn->lastInsertId(); //extrae el id del ultimo registro insertado en la bd
-
-
-
-            if ($count > 0) {
-                print "<script>
-                                Swal.fire({
-                                  icon: 'success',
-                                  title: 'Hecho!',
-                                  text: 'Se Ha registrado el Usuario!',
-                                })
-                                </script>";
-            } else {
-                print "<script>
-                                Swal.fire({
-                                  icon: 'error',
-                                  title: 'OPPS!',
-                                  text: 'No se Ha realizado el Registro!',
-                                })
-                                </script>";
-            }
-            CloseCon($conn);
-        } else {
-            echo "<div class=\"alert alert-danger \" role=\"alert\" >";
-            echo "Aun faltan campos por llenar!! :<";
-            echo "</div>";
-        }
-    }
-    echo "
-            </div>
-        </div>
-    </div>"; //fin del div card-footer, CARD, COL
-
     //incluimos footer
     include "../../Share/footer.php";
     ?>
@@ -219,21 +178,21 @@ CloseCon($conn);
                     $("#FormMultiple").css("display", "block");
                 }
             });
-            var i =0;
+
+            var i = 0;
             $("#btnAgregar").click(function() {
                 i++;
                 var tipo = document.getElementById("idTipo");
                 var ntipo = tipo.options[tipo.selectedIndex].text;
                 var pregunta = $("#pregunta").val();
-                var idTipo =$("#idTipo").val();
+                var idTipo = $("#idTipo").val();
                 var idDocente = $("#idDocente").val();
                 var cod = $("#codigo").val();
                 var Fecha = $("#Fecha").val();
-                if(idTipo==2){
+                if (idTipo == 2) {
                     var Respuesta = $("#Respuesta").val();
-                }
-                else{
-                    var Respuesta = $("#RespuestaV").val();  
+                } else {
+                    var Respuesta = $("#RespuestaV").val();
                 }
                 //var Respuesta = $("#Respuesta").val();
                 //var RespuestaV = $("#RespuestaV").val();
@@ -263,80 +222,98 @@ CloseCon($conn);
 
                 }
             });
-            //EliminarCerda
 
         });
 
         $("body").on('click', 'button#btnDel', function() {
             var col = $(this).parents('tr');
             $(this).parents('tr').remove();
+
         });
 
 
-        //enviar factura
+        //enviar preguntas
         $("#btnGuardar").click(function() {
-            var NumLote = $("#NumLote").val();
+            var idDocente = $("#idDocente").val();
+            var cod = $("#codigo").val();
             var Fecha = $("#Fecha").val();
-            if (NumLote == "" || Fecha == "") {
+            var Indicaciones = $("#Indicaciones").val();
+            if (cod == "" || Fecha == "" || idDocente == "" || Indicaciones == "") {
                 Swal.fire({
-                    position: 'top',
-                    type: 'warning',
-                    title: 'Faltan Datos Del LOTE.',
-                    showConfirmButton: false,
-                    timer: 1500
+                    icon: 'error',
+                    title: 'OPPS!',
+                    text: 'Verifique los Datos Faltantes!',
                 })
             } else {
-                $.ajaxSetup({
-                    async: false
-                });
                 //cargando datos tabla primaria
-                var urlLote = '@Url.Action("CrearLote", "Lotes")';
-                var dataLote = {
-                    NumLote: NumLote,
-                    Fecha: Fecha
+                var url = 'crear_evaluacion.php';
+                var dataE = {
+                    codigo: cod,
+                    fecha: Fecha,
+                    idDocente: idDocente,
+                    indicaciones: Indicaciones
                 };
-                $.post(urlLote, dataLote)
-                    .done(function(data) {
-                        // alert("Compra Creada con exito")
-                    })
-                    .fail(function(data) {
-                        console.log("Error: " + data.responseText);
-                    }).
-                always(function() {});
-                //creando detalleCompra
-                $(".id").parent("tr").find("td:eq(0)").each(function() {
-                    var columna = $(this).parents('tr');
-                    var IdCerda = columna.find("td:eq(0)").text();
-                    var IdVarraco = columna.find("td:eq(1)").text();
-                    var FechaInceminacion = columna.find("td:eq(4)").text();
-                    var FechaParto = columna.find("td:eq(5)").text();
-                    var Vacuna1 = columna.find("td:eq(6)").text();
-                    var Vacunap = columna.find("td:eq(7)").text();
-                    var Vacuna2 = columna.find("td:eq(8)").text();
-                    var Observacion = columna.find("td:eq(9)").text();
-                    var urlDLote = '@Url.Action("CargarLote", "Lotes")';
-                    var dataDLote = {
-                        IdCerda: IdCerda,
-                        IdVarraco: IdVarraco,
-                        FechaInceminacion: FechaInceminacion,
-                        FechaParto: FechaParto,
-                        Vacuna1: Vacuna1,
-                        Vacunap: Vacunap,
-                        Vacuna2: Vacuna2,
-                        Observacion: Observacion
-                    };
-                    //alert(IdCerda + IdVarraco + FechaInceminacion + FechaParto + Vacuna1 + Vacuna2 + Observacion);
-                    $.post(urlDLote, dataDLote)
-                        .done(function(data) {})
-                        .fail(function(data) {
-                            console.log("Error: " + data.responseText);
-                        }).
-                    always(function() {});
-
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: dataE,
+                    success: function(id) {
+                        $("#idEvaluacion").val(id);
+                        llenarP();
+                    }
                 });
-                var url = '@Url.Action("Index", "Lotes")';
-                $(location).attr('href', url);
-            }
+                //creando detalleExamen
 
+
+            }
         });
+
+        function llenarP() {
+            $(".id").parent("tr").find("td:eq(0)").each(function() {
+                var codigo = $("#idEvaluacion").val();
+                var columna = $(this).parents('tr');
+                var idTipo = columna.find("td:eq(1)").text();
+                var pregunta = columna.find("td:eq(3)").text();
+                var respuesta = columna.find("td:eq(4)").text();
+                var respuestaf1 = columna.find("td:eq(5)").text();
+                var respuestaf2 = columna.find("td:eq(6)").text();
+                var respuestaf3 = columna.find("td:eq(7)").text();
+
+
+                var dataP = {
+                    codigo: codigo,
+                    idTipo: idTipo,
+                    pregunta: pregunta,
+                    respuesta: respuesta,
+                    respuestaf1: respuestaf1,
+                    respuestaf2: respuestaf2,
+                    respuestaf3: respuestaf3
+
+                };
+                var url = 'detalle_evaluacion.php';
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: dataP,
+                    success: function(data) {
+                        if (data != "SI") {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'OPPS!',
+                                text: 'Verifique!',
+                            })
+                        } else {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'EXITO!',
+                                text: 'Evaluacion Creada!',
+                            })
+                            location.reload();
+                        }
+
+                    }
+                });
+
+            });
+        }
     </script>

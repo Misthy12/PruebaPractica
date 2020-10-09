@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 08-10-2020 a las 18:42:28
+-- Tiempo de generación: 09-10-2020 a las 02:50:04
 -- Versión del servidor: 10.4.13-MariaDB
--- Versión de PHP: 7.4.8
+-- Versión de PHP: 7.4.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -36,13 +36,6 @@ CREATE TABLE `tblalumnos` (
   `correo` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Volcado de datos para la tabla `tblalumnos`
---
-
-INSERT INTO `tblalumnos` (`idAlumno`, `alumnoNombre`, `alumnoApellido`, `fechaNacimiento`, `idUsuario`, `correo`) VALUES
-(1, 'Nancy Alondra', 'Colato Martinez', '2005-06-08', 3, 'nancycolatoam@gmail.com');
-
 -- --------------------------------------------------------
 
 --
@@ -63,7 +56,7 @@ CREATE TABLE `tbldocentes` (
 --
 
 INSERT INTO `tbldocentes` (`idDocente`, `docenteNombre`, `docenteApellido`, `telefono`, `idUsuario`, `correo`) VALUES
-(1, 'Andres', 'Argueta', '7825-6378', 2, 'nancycolatoam@gmail.com');
+(2, 'Marta ', 'Sonia', '72748596', 2, 'sonia@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -78,13 +71,6 @@ CREATE TABLE `tblevaluacionalumno` (
   `idEvaluacion` int(11) NOT NULL,
   `estado` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Volcado de datos para la tabla `tblevaluacionalumno`
---
-
-INSERT INTO `tblevaluacionalumno` (`idEvaluacionAlumno`, `nota`, `idAlumno`, `idEvaluacion`, `estado`) VALUES
-(1, '10.00', 1, 1, 'Aprobado');
 
 -- --------------------------------------------------------
 
@@ -105,7 +91,7 @@ CREATE TABLE `tblevaluaciones` (
 --
 
 INSERT INTO `tblevaluaciones` (`idEvaluacion`, `codigo`, `fecha`, `idDocente`, `indicaciones`) VALUES
-(1, 'E0001', '2020-10-09', 1, 'Realizar la Actividad');
+(18, 'm0Y0f7N7', '2020-10-09', 2, 'Realice las Preguntas');
 
 -- --------------------------------------------------------
 
@@ -117,13 +103,20 @@ CREATE TABLE `tblpreguntas` (
   `idPregunta` int(11) NOT NULL,
   `idEvaluacion` int(11) NOT NULL,
   `idTipoPregunta` int(11) NOT NULL,
-  `ponderacion` decimal(4,2) NOT NULL,
-  `respuestaCorrecta` varchar(255) DEFAULT NULL,
+  `pregunta` varchar(255) NOT NULL,
+  `respuestaCorrecta` varchar(255) NOT NULL,
   `seleccion1` varchar(255) DEFAULT NULL,
   `seleccion2` varchar(255) DEFAULT NULL,
-  `seleccion3` varchar(255) DEFAULT NULL,
-  `seleccion4` varchar(255) DEFAULT NULL
+  `seleccion3` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `tblpreguntas`
+--
+
+INSERT INTO `tblpreguntas` (`idPregunta`, `idEvaluacion`, `idTipoPregunta`, `pregunta`, `respuestaCorrecta`, `seleccion1`, `seleccion2`, `seleccion3`) VALUES
+(10, 18, 2, 'PHP es Para WEB', 'Verdadero', '', '', ''),
+(11, 18, 1, 'LENGUAJE PARA WEB', 'PHP', 'VB', 'JAVA', 'C');
 
 -- --------------------------------------------------------
 
@@ -182,9 +175,8 @@ CREATE TABLE `tblusuarios` (
 --
 
 INSERT INTO `tblusuarios` (`idUsuario`, `usuario`, `clave`, `idRol`) VALUES
-(1, 'nancy.colato', '$2y$10$Gu51YgE29.6dDd9r2YLkyucKIr8Wyk0GdyyJcpNfrm9PvgqaCQ/QC', 1),
-(2, 'andres.argueta', '$2y$10$5jIOdgr4psZHw.DsUpXyo.sU8gV7YflXlAt5720uxLWUDbfssQx3e', 2),
-(3, 'alondra.martinez', '$2y$10$PgfwYDvg2HU..5U3e8HuxucI1bOxBe8LuQK3GoiELkNX2MSv0r35e', 3);
+(1, 'nancy.colato', '$2y$10$mxoR80ggWt5cnvQ7IHOyvuN13xaT1GhTT61Pd8V3dZt0cdB2nhHl6', 1),
+(2, 'admin', '$2y$10$gIRMDAPnQP2OBOkqr9n9c.pmJN.AO5NjnIKvTSFJI1elIRFEwbg7y', 1);
 
 --
 -- Índices para tablas volcadas
@@ -254,31 +246,31 @@ ALTER TABLE `tblusuarios`
 -- AUTO_INCREMENT de la tabla `tblalumnos`
 --
 ALTER TABLE `tblalumnos`
-  MODIFY `idAlumno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idAlumno` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `tbldocentes`
 --
 ALTER TABLE `tbldocentes`
-  MODIFY `idDocente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idDocente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `tblevaluacionalumno`
 --
 ALTER TABLE `tblevaluacionalumno`
-  MODIFY `idEvaluacionAlumno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idEvaluacionAlumno` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `tblevaluaciones`
 --
 ALTER TABLE `tblevaluaciones`
-  MODIFY `idEvaluacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idEvaluacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT de la tabla `tblpreguntas`
 --
 ALTER TABLE `tblpreguntas`
-  MODIFY `idPregunta` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idPregunta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `tblroles`
@@ -296,7 +288,7 @@ ALTER TABLE `tbltipopreguntas`
 -- AUTO_INCREMENT de la tabla `tblusuarios`
 --
 ALTER TABLE `tblusuarios`
-  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Restricciones para tablas volcadas
