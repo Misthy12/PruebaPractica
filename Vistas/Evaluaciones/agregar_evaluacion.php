@@ -163,52 +163,6 @@ CloseCon($conn);
 <div class="card-footer">
     <!-- ENVIO DE DATOS -->
     <?php
-<<<<<<< Updated upstream
-    if (isset($_POST["submit"])) {
-        //verificar la conexion
-        if ($conn == null) {
-            die("No se ha podido conectar con la base de datos :(");
-        }
-
-        if ($_POST["codigo"] != "" && $_POST["fecha"] != "" && $_POST["docente"] != "") {
-
-            $sqlEvaluacion = "INSERT INTO tblEvaluaciones(codigo, fecha, idDocente, indicaciones) VALUES ('" . $_POST["codigo"] . "','" . $_POST["fecha"] . "','" . $_POST["docente"] . "','" . $_POST["Indicaciones"] . "')";
-            $count = $conn->exec($sqlEvaluacion);
-            $idEval = $conn->lastInsertId(); //extrae el id del ultimo registro insertado en la bd
-
-
-
-            if ($count > 0) {
-                print "<script>
-                                Swal.fire({
-                                  icon: 'success',
-                                  title: 'Hecho!',
-                                  text: 'Se Ha registrado el Usuario!',
-                                })
-                                </script>";
-            } else {
-                print "<script>
-                                Swal.fire({
-                                  icon: 'error',
-                                  title: 'OPPS!',
-                                  text: 'No se Ha realizado el Registro!',
-                                })
-                                </script>";
-            }
-            CloseCon($conn);
-        } else {
-            echo "<div class=\"alert alert-danger \" role=\"alert\" >";
-            echo "Aun faltan campos por llenar!! :<";
-            echo "</div>";
-        }
-    }
-    echo "
-            </div>
-        </div>
-    </div>"; //fin del div card-footer, CARD, COL
-
-=======
->>>>>>> Stashed changes
     //incluimos footer
     include "../../Share/footer.php";
     ?>
@@ -224,8 +178,7 @@ CloseCon($conn);
                     $("#FormMultiple").css("display", "block");
                 }
             });
-<<<<<<< Updated upstream
-=======
+
             var i = 0;
             $("#btnAgregar").click(function() {
                 i++;
@@ -275,10 +228,11 @@ CloseCon($conn);
         $("body").on('click', 'button#btnDel', function() {
             var col = $(this).parents('tr');
             $(this).parents('tr').remove();
+
         });
 
 
-        //enviar factura
+        //enviar preguntas
         $("#btnGuardar").click(function() {
             var idDocente = $("#idDocente").val();
             var cod = $("#codigo").val();
@@ -312,8 +266,6 @@ CloseCon($conn);
 
 
             }
-
->>>>>>> Stashed changes
         });
 
         function llenarP() {
