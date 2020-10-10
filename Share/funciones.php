@@ -229,7 +229,7 @@
      function activAprobadas($id){
            //consulta a bd de docente para extraer el id de eval
          $conn=OpenCon();
-         $sql=$conn->prepare("SELECT *FROM tblEvaluaciones WHERE idDocente = $id");
+         $sql=$conn->prepare("SELECT idEvaluacion FROM tblEvaluaciones WHERE idDocente = $id");
          $sql->execute();
          $rowE=$sql->fetchAll(PDO::FETCH_OBJ);
          foreach($rowE as $rowE){}

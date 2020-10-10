@@ -20,7 +20,7 @@
         
         
         //Variable idAR
-        $idAR=$rowE->idEvaluacionAlumno;
+        $idAR=$rowE->idEvaluacion;
         //Cerranmos Conexion
         CloseCon($conn);
       }
@@ -79,7 +79,7 @@
                             $sqlAA="SELECT ea.idEvaluacionAlumno as id, ea.nota, a.alumnoNombre, a.alumnoApellido, ea.estado FROM tblEvaluacionAlumno ea
                                      INNER JOIN tblAlumnos a ON ea.idAlumno= a.idAlumno WHERE ea.estado='Aprobado'";
                             
-                            if(aprobados($rowE->idEvaluacionAlumno)==NULL){
+                            if(aprobados($rowE->idEvaluacion)==NULL){
                                 ECHO "<h1 class='text-center bg-warning card-footer'>NO EXISTEN APROBADOS!!</h1>";
                             }
                             else{
@@ -108,10 +108,10 @@
                 <?php
                             $conn =OpenCon();
                             $sqlAR="SELECT ea.idEvaluacionAlumno as id, ea.nota, a.alumnoNombre, a.alumnoApellido, ea.estado FROM tblEvaluacionAlumno ea
-                                     INNER JOIN tblAlumnos a ON ea.idAlumno= e.idAlumno WHERE  ea.estado='Aprobado'";
+                                     INNER JOIN tblAlumnos a ON ea.idAlumno= a.idAlumno WHERE  ea.estado='Reprobado'";
 
                          
-                            if(reprobados($rowE->idEvaluacionAlumno)==null){
+                            if(reprobados($rowE->idEvaluacion)==null){
                                 ECHO "<h1 class='text-center bg-warning card-footer'>NO EXISTEN REPROBADOS!!</h1>";
                             }
                             else{
