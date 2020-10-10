@@ -83,7 +83,7 @@
                     
                     foreach( $conn->query($sql) as $row){
                          $fecha = $row["fecha"];
-                    if($fecha >= $fecha_actual){
+                    if($fecha == $fecha_actual){
                         echo "<div class='card col-sm-12 col-md-4' >";
                                 echo "<div class='card-header bg-success'> 
                                         <h4 class='text-center'>Evaluación Activa</h4>
@@ -99,7 +99,7 @@
                     }
                 }else{
                         echo "<div class='col-12 bg-warning'>
-                            <h3 class='text-center'><b>NO POSEE ACTIVIDADES!!</b> </h3>
+                            <h3 class='text-center'><b>NO POSEE ACTIVIDADES ACTIVAS!!</b> </h3>
                         </div>";
                     }
                 
