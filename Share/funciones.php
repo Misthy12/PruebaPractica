@@ -169,6 +169,18 @@
          return($nombre);
          CloseCon($conn);
      }
+     function idEvalDocente($id){
+          //consulta a bd
+         $conn=OpenCon();
+ 
+         //consulta 
+         $stmt = "SELECT * FROM tblEvaluaciones WHERE idDocente=$id";
+          foreach( $conn->query($stmt) as $rowE){
+               $idE=array($rowE["idEvaluacion"]);
+          }
+         return($idE);
+         CloseCon($conn);
+     }
 
      //numero de aprobados de un alumno
      function alumnosAprobados($id){
@@ -207,40 +219,41 @@
          CloseCon($conn);
      }
 
-     //Numero de reprobados de una evaluacion de un docente
-     function activReprobadas($id){
-          //consulta a bd de docente para extraer el id de eval
+     //evalauciones vencidas
+     function evalVencidas($id){
+          $hoy=date("Y-m-d");
+          //consulta a bd
          $conn=OpenCon();
-         $sql=$conn->prepare("SELECT *FROM tblEvaluaciones WHERE idDocente = $id");
-         $sql->execute();
-         $rowE=$sql->fetchAll(PDO::FETCH_OBJ);
-         foreach($rowE as $rowE){}
-          $eval=$rowE->idEvaluacion;
 
-          //consulta de Num de eval reprobed
-          $stmt = $conn->prepare("SELECT idEvaluacion FROM tblevaluacionalumno WHERE estado='Reprobado' AND idEvaluacion=$eval");
-          $stmt->execute();
-          $count=$stmt->rowCount();
-          return($count);
-          // CloseCon($conn);
+         $stmt = "SELECT * FROM tblEvaluaciones";
+          $count=0;
+          foreach( $conn->query($stmt) as $row){
+               if($row["fecha"] < $hoy && $row["idDocente"]==$id){
+                    $count+=1;
+               }
+          }
+          return $count;
+              
+         CloseCon($conn);
      }
-     
-     //Numero de aprobados de una evaluacion de un docente
-     function activAprobadas($id){
-           //consulta a bd de docente para extraer el id de eval
-         $conn=OpenCon();
-         $sql=$conn->prepare("SELECT idEvaluacion FROM tblEvaluaciones WHERE idDocente = $id");
-         $sql->execute();
-         $rowE=$sql->fetchAll(PDO::FETCH_OBJ);
-         foreach($rowE as $rowE){}
-         $eval=$rowE->idEvaluacion;
+
+     //evalauciones vencidas
+     function evalFuturas($id){
+          $hoy=date("Y-m-d");
+          //consulta a bd
+          $conn=OpenCon();
           //consulta de Num de aproved
-           $stmt = $conn->prepare("SELECT idEvaluacion FROM tblevaluacionalumno WHERE estado='Aprobado' AND idEvaluacion=$eval");
-               $stmt->execute();
-               $count=$stmt->rowCount();
-               return($count);
-               CloseCon($conn);
-          
+          $stmt = "SELECT * FROM tblEvaluaciones";
+          $count=0;
+          foreach( $conn->query($stmt) as $row){
+               if($row["fecha"] < $hoy && $row["idDocente"]==$id){
+                    $count+=1;
+               }
+          }
+          return $count;
+         
+         
+         CloseCon($conn);
      }
      //Numero de aprobados de una evaluacion de un docente
      function evalDeUnDocente($id){
