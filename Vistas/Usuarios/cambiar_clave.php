@@ -44,9 +44,10 @@
                             <input type="text" name="usuario" id="usuario" class="form-control" require>
                             <br>
                             <label for="correo">Ingrese correo Vinculado</label>
-                            <input type="text" name="correo" id="correo" class="form-control" require>
+                            <input type="email" name="correo" id="correo" class="form-control" require>
                             <br>
                             <input type="submit" name="btnEnviar" id="btnEnviar" class="form-control btn btn-success" value="Solicitar Contraseña">
+                            <a href='../../Index.php' class='form-control btn btn-warning'>Regresar</a>
                         </from>
                     </div>
                     

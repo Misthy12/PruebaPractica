@@ -10,7 +10,7 @@
 
        //extraemos datos
        $id=$_GET["codigo"];
-       $sql="SELECT u.idUsuario, u.usuario, u.clave, r.rol, u.idRol FROM tblusuarios u
+       $sql="SELECT u.idUsuario, u.usuario,u.clave, u.clave, r.rol, u.idRol FROM tblusuarios u
                     INNER JOIN tblRoles r ON u.idRol = r.idRol WHERE u.idUsuario = $id";
        $stmm = $conn->prepare($sql);
        $stmm->execute(array($id));
@@ -48,7 +48,7 @@
                         
                         <div class="col-md-6 col-sm-12" >
                             <label for="clave">Contraseña</label>
-                            <input type="text" name="clave" id="clave" class="form-control" value="<?php echo $row->password?>" required/>
+                            <input type="password" name="clave" id="clave" class="form-control" value="<?php echo $row->clave?>" readonly/>
                             <br>
                         </div>
                     </div>
@@ -57,7 +57,7 @@
                         
                             <label for="rol">Rol</label>
                             <select name="rol" id="rol" type="text" class="form-control"  required>
-                            <option  value="<?php echo $row->idRol?>" ><?php $row->rol?></option>
+                            <option  value="<?php echo $row->idRol?>" ><?php echo $row->rol?></option>
                                 <?php   
                                     foreach ($conn->query($sqlRoles) as $valor) {
                                         echo "<option value='".$valor["idRol"]."'>".$valor["rol"]."</option>";
@@ -72,7 +72,7 @@
                     <input type="Submit" value="Guardar" name="submit" class="btn btn-success">
                     
                     <?php
-                        if($_SESSION["login"] ="Admin"){
+                        if($_SESSION["login"]=="Admin"){
                             echo "<a href='../Usuarios/listado_usuarios.php' class='btn btn-warning'>Regresar</a>";
                         }
                     ?>
