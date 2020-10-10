@@ -23,9 +23,9 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="#" class="brand-link">
-       <i class="brand-image img-circle mt-2 text-xl nav-icon " style="color:#fff" >KANF</i>
+       <i class="brand-image img-circle mt-2 text-xl nav-icon " style="color:#fff" >KE</i>
 
-      <span class="brand-text font-weight-light text-center text-uppercase"><b><i>Evaluaciones!!<i></b></span>
+      <span class="brand-text font-weight-light text-center text-uppercase"><b><i>KANF Evaluaciones!!<i></b></span>
     </a>
 
     <!-- Sidebar -->

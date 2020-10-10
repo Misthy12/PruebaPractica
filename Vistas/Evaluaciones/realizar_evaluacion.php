@@ -2,28 +2,30 @@
 include "../../Share/header.php";
 //CONEXION
 include "../../Share/conexion.php";
+$n=0;
 ?>
-<div class="card">
-    <div class="card-header bg-success">
-        <h3 class="text-center  font-weight-bold">Buscar Evaluacion</h3>
-    </div>
-    <div class="card-body">
-        <form action="" method="POST">
-            <div class="row col-12 form-group">
-                <div class="col-9">
-                    <label for="Codigo">Codigo Evaluacion</label>
-                    <input type="text" name="Codigo" id="Codigo" class="form-control" required />
-                </div>
-                <div class="col-3">
-                    </BR>
-                    <input type="Submit" value="Buscar" name="btnEvaluacion" id="btnEvaluacion" class="btn-blo btn btn-success">
-                </div>
+<div class="row col-12">
+    <div class="col-md-8 offset-md-2 col-sm-12 ">
+        <div class="card ">
+            <div class="card-header bg-primary">
+                <h3 class="text-center  font-weight-bold">Buscar Evaluacion</h3>
             </div>
-        </form>
-    </div>
-</div>
+            <div class="card-body">
+                <form action="" method="POST">
+                    <div class="row col-12 form-group">
+                        <div class="col-md-9 col-sm-8">
+                            <input type="text" name="Codigo" id="Codigo" class="form-control" placeholder="Ingrese Codigo de Evaluacion" required />
+                        </div>
+                        <div class="col-md-3 col-sm-12">
+                            <input type="Submit" value="Buscar" name="btnEvaluacion" id="btnEvaluacion" class="btn col-sm-12 btn-success">
+                        </div>
+                    </div>
+                </form>
+        
+<!-- ========================== BUSQUEDA EVAL ==================================== -->
 <?php
 if (isset($_POST["btnEvaluacion"])) {
+    $n=1;
     $conn = OpenCon();
     //extraemos datos
     $id = $_POST["Codigo"];
@@ -52,11 +54,11 @@ if (isset($_POST["btnEvaluacion"])) {
             </script>";
         } else {           
 ?>
-            <div class="card">
-                <div class="card-header bg-success">
-                    <h3 class="text-center  font-weight-bold"><?php echo $rowe->indicaciones; ?></h3>
-                </div>
-                <div class="card-body">
+       
+                <!-- ======================= IMPRESION EVAL ==================================== -->
+                <hr>
+                <h5 class="text-justify font-italic"><b>INDICACIONES: </b><?php echo $rowe->indicaciones?></h5>
+                <hr>
                     <?PHP
                     $i = 1;
                     $stmm1 = "SELECT *from tblpreguntas where idEvaluacion = $rowe->idEvaluacion";
@@ -100,6 +102,7 @@ if (isset($_POST["btnEvaluacion"])) {
 
                 </div>
             </div>
+        </div>
 <?php
         }
     } else {
@@ -113,6 +116,7 @@ if (isset($_POST["btnEvaluacion"])) {
     }
     CloseCon($conn);
 }
+echo "</div></div></div>";//fin del row
 
 //incluimos footer
 include "../../Share/footer.php";

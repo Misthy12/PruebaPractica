@@ -114,15 +114,16 @@ session_start();
         $data=$stmt->fetch(PDO::FETCH_OBJ);//asigna los datos recogidos
 
         if($count>0 && password_verify($clave,$data->clave)){
+            $nombreUser=$data->usuario;
             if($data->idRol==1){
-            $nombre=$data->usuario;
             $_SESSION['id']=$data->idUsuario; // Storing user session value
-            $_SESSION['nombre']=$nombre;
+            $_SESSION['nombre']=$nombreUser;
             $_SESSION["login"]="Admin";//identificar la sesion
             print "<script> window.location = './Vistas/Index/IndexAdminLC.php';</script>";
           }
           //PARA ESTUDIANTE
           elseif($data->idRol==3 ){
+            
             $idUser=$data->idUsuario;//ide del usuario
             $stmtA = $conn->prepare("SELECT * FROM tblAlumnos  WHERE idUsuario=:idUser"); 
             $stmtA->bindParam("idUser", $idUser,PDO::PARAM_STR) ;
@@ -136,12 +137,14 @@ session_start();
             $_SESSION['idUser']=$data->idUsuario; // Storing user session value
             $_SESSION['id']=$dataAlumn->idAlumno;
             $_SESSION['nombre']=$nombreAlum;
+            $_SESSION['usuario']=$usuario;
             $_SESSION["login"]="Alumno";//identificar la sesion
             print "<script> window.location = './Vistas/Index/IndexAlumno.php';</script>";
             }
           }
           //PARA DOCENTE
           else{
+            $nombreUser=$data->usuario;
             $idUser=$data->idUsuario;//id del usuario
             $stmtD = $conn->prepare("SELECT * FROM tblDocentes WHERE idUsuario=:idUser"); 
             $stmtD->bindParam("idUser", $idUser,PDO::PARAM_STR) ;
@@ -154,6 +157,7 @@ session_start();
             $_SESSION['idUSer']=$data->idUsuario; // Storing user session value
             $_SESSION['id']=$dataDocen->idDocente; // Storing user session value
             $_SESSION['nombre']=$nombreDocen;
+            
             $_SESSION["login"]="Docente";//identificar la sesion
             print "<script> window.location = './Vistas/Index/IndexDocente.php';</script>";
             }
