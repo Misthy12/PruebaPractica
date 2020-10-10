@@ -81,9 +81,9 @@ if($_GET){
                             die("No se ha podido conectar con la base de datos :'( ");
                         }
 
-                        if($_POST["nombreUsuario"]!="" && $_POST["clave"]!=""){
+                        if($_POST["Fecha"]!="" && $_POST["Indicaciones"]!=""){
 
-                            $sql = "UPDATE tblusuarios SET usuario='".$_POST["nombreUsuario"]."', clave='".$_POST["clave"]."', idRol='".$_POST["rol"]."' WHERE idUsuario='".$_POST["id"]."'";
+                            $sql = "UPDATE tblEvaluaciones SET fecha='".$_POST["Fecha"]."', idDocente='".$_POST["idDocente"]."', indicaciones='".$_POST["Indicaciones"]."' WHERE idEvaluacion='".$_POST["id"]."'";
                             $codigo=$_POST["id"];        
                             $count = $conn->exec($sql);
                             if($count > 0){
