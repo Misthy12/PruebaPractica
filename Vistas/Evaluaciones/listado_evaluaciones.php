@@ -61,7 +61,7 @@ include '../../Share/funciones.php';
                                         if(actividadRealizada($row["id"])!=null){
                                         echo "<a class='btn btn-sm btn-info' href=\"../Evaluaciones/info_evaluacion.php?codigo=". $row["id"]."\" ><i class='fas fa-info'></i></a> \n";
                                         }
-                                        echo "<a class=\"btn btn-sm btn-danger\" href=\"./eliminar_evaluacion.php?codigo=". $row["id"]."\"><i class=\"far fa-trash-alt\"></i></a>";
+                                        echo "<a class=\"btn btn-sm btn-danger\" href=\"../Evaluaciones/eliminar_evaluacion.php?codigo=". $row["codigo"]."\"><i class=\"far fa-trash-alt\"></i></a>";
                                     echo "</td>";
                                 echo "</tr>";
                             }
@@ -82,6 +82,22 @@ include '../../Share/funciones.php';
                               icon: 'success',
                               title: 'Hecho!',
                               text: 'Se Ha Eliminado el registro!',
+                            })
+                            </script>";
+                        }elseif($_GET['result'] == 2){
+                            Print"<script>
+                            Swal.fire({
+                              icon: 'error',
+                              title: 'UPPS!',
+                              text: 'No se puede eliminar posee evaluaciones realizadas!',
+                            })
+                            </script>";
+                        }elseif($_GET['result'] == 3){
+                            Print"<script>
+                            Swal.fire({
+                              icon: 'error',
+                              title: 'ERROR!',
+                              text: 'Conexion a BD Fallida!',
                             })
                             </script>";
                         }else{

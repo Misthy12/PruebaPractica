@@ -105,6 +105,7 @@ if (isset($_POST["btnEvaluacion"])) {
         </div>
 <?php
         }
+        
     } else {
         print "<script>
         Swal.fire({
