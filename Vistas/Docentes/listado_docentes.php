@@ -71,6 +71,14 @@ include("../../Share/header.php");
                               text: 'Se Ha Eliminado el registro!',
                             })
                             </script>";
+                        }elseif($_GET['result'] == 2){
+                            Print"<script>
+                            Swal.fire({
+                              icon: 'error',
+                              title: 'UPPS!',
+                              text: 'No se puede eliminar el docente posee actividades creadas!',
+                            })
+                            </script>";
                         }else{
                             Print"<script>
                             Swal.fire({

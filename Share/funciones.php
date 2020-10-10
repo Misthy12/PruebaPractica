@@ -43,7 +43,31 @@
          $conn=OpenCon();
  
          //consulta de Num de usuarios
-         $stmt = $conn->prepare("SELECT idUsuario FROM tblUsuarios");
+         $stmt = $conn->prepare("SELECT usuario FROM tblUsuarios");
+         $stmt->execute();
+         $count=$stmt->rowCount();
+         return($count);
+         CloseCon($conn);
+    }
+    //busqueda de  usuario por id en tabla docente
+    function idUserDocente($id){
+         //consulta a bd
+         $conn=OpenCon();
+ 
+         //consulta de Num de usuarios
+         $stmt = $conn->prepare("SELECT idUsuario FROM tblDocentes WHERE idUsuario=$id");
+         $stmt->execute();
+         $count=$stmt->rowCount();
+         return($count);
+         CloseCon($conn);
+    }
+    //busqueda de  usuario por id en tabla Alumnos
+    function idUserAlumno($id){
+         //consulta a bd
+         $conn=OpenCon();
+ 
+         //consulta de Num de usuarios
+         $stmt = $conn->prepare("SELECT idUsuario FROM tblAlumnos WHERE idUsuario=$id");
          $stmt->execute();
          $count=$stmt->rowCount();
          return($count);

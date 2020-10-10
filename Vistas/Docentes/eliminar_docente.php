@@ -1,6 +1,6 @@
 <?php
     if (isset($_GET['codigo'])) {
-        include '../../Share/conexion.php';
+        include '../../Share/funciones.php';
         $conn = OpenCon();
             
         // Verificamos la conexión
@@ -9,8 +9,8 @@
             header('Location: ./listado_docentes.php?result=0');
         } 
         
+        if(evalDeUnDocente($_GET['codigo'])==null){
         $sql = "DELETE FROM tblDocentes WHERE idDocente = ?";
-
         $sth = $conn->prepare($sql);
         $sth->execute(array($_GET['codigo']));
         $count = $sth->rowCount();
@@ -23,6 +23,9 @@
                 exit();
             }
             CloseCon($conn);
+        }else{
+            header('Location: ./listado_docentes.php?result=2');
+        }
     } else {
         header('Location:./listado_docentes.php?result=0');
     }

@@ -1,14 +1,14 @@
 
 <?php
     include "../../Share/header.php";
+    include "../../Share/conexion.php";
     if($_GET){
         //CONEXION
-        include "../../Share/conexion.php";
         $conn=OpenCon();
 
         //extraemos datos
         $id=$_GET["codigo"];
-        $stmm = $conn->prepare("SELECT d.idDocente, d.correo, d.docenteNombre as nombre, d.docenteApellido as apellido, d.telefono, u.usuario, u.clave, d.idUsuario FROM tblDocentes d
+        $stmm = $conn->prepare("SELECT d.idDocente as id, d.correo, d.docenteNombre as nombre, d.docenteApellido as apellido, d.telefono, u.usuario, u.clave, d.idUsuario FROM tblDocentes d
         INNER JOIN tblUsuarios u ON d.idUsuario = u.idUsuario WHERE d.idDocente=$id");
         $stmm->execute(array($id));
         $row=$stmm->fetchAll(PDO::FETCH_OBJ);
@@ -62,7 +62,7 @@
                         </div>
                         <div class="col-md-6 col-sm-12" >
                             <label for="correo">Correo</label>
-                            <input type="email" name="correo" id="correo" class="form-control" value="<?php echo $row->correo?>" />
+                            <input type="email" name="correo" id="correo" class="form-control" value="<?php echo $row->correo?>" r/>
                             <br>
                         </div>
                     </div>
@@ -72,7 +72,7 @@
                             <input type="Submit" value="Guardar" name="submit" class="btn btn-success "> 
 
                             <?php
-                                if($_SESSION["login"] ="Docente"){
+                                if($_SESSION["login"]=="Docente"){
                                     echo "<a href='../Index/IndexDocente.php' class='btn btn-warning ' style='margin-left:3px'>Regresar</a>";
                                 }else{
                                     echo "<a href='../Docentes/listado_Docentes.php' class='btn btn-warning '>Regresar</a>";
@@ -89,19 +89,20 @@
                 <!-- ENVIO DE DATOS -->
                 <?php
                     if(isset($_POST["submit"])){
+                        //CONEXION
+                        $conn=OpenCon();
 
-                        //verificar la conexion
-                        
+                        //verificar la conexion      
                         if ($conn == null){
                             die("No se ha podido conectar con la base de datos :'( ");
                         }
 
-                        if($_POST["nombre"]!="" && $_POST["apellido"]!="" && $_POST["tel"]!="" ){
+                        if($_POST["nombre"]!="" && $_POST["apellido"]!="" && $_POST["tel"]!="" && $_POST["correo"]!="" ){
                            
-                            $sql = "UPDATE tblDocentes SET docenteNombre='".$_POST["nombre"]."', docenteApellido='".$_POST["apellido"]."', telefono='".$_POST["tel"]."', correo='".$_POST["correo"]."' WHERE id='".$_POST["id"]."'";
+                            $sqlDoc="UPDATE tblDocentes SET docenteNombre='".$_POST['nombre']."',docenteApellido='".$_POST['apellido']."', telefono='".$_POST['tel']."', correo='".$_POST['correo']."' WHERE idDocente='".$_POST['id']."'";
                             $codigo=$_POST["id"];        
-                            $count = $conn->exec($sql);
-                            if($count > 0){
+                            $count2 = $conn->exec($sqlDoc);
+                            if($count2 > 0){
                                 Print"<script>
                                 Swal.fire({
                                   icon: 'success',

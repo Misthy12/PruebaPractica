@@ -1,6 +1,6 @@
 <?php
     if (isset($_GET['codigo'])) {
-        include '../../Share/conexion.php';
+        include '../../Share/funciones.php';
         $conn = OpenCon();
             
         // Verificamos la conexión
@@ -8,7 +8,8 @@
             die("No se pudo conectar a la base de datos :( ");
             header('Location: ./listado_usuarios.php?result=0');
         } 
-        
+
+        if(idUserDocente($_GET['codigo'])==null && idUserAlumno($_GET['codigo'])==null){
         $sql = "DELETE FROM tblusuarios WHERE idUsuario = ?";
 
         $sth = $conn->prepare($sql);
@@ -23,6 +24,9 @@
                 exit();
             }
             CloseCon($conn);
+        }else{
+            header('Location: ./listado_usuarios.php?result=2');
+        }
     } else {
         header('Location:./listado_usuarios.php?result=0');
     }

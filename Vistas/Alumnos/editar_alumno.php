@@ -1,9 +1,9 @@
 
 <?php
     include "../../Share/header.php";
+    include "../../Share/conexion.php";
     if($_GET){
         //CONEXION
-        include "../../Share/conexion.php";
         $conn=OpenCon();
 
         //extraemos datos
@@ -74,7 +74,7 @@
                             <input type="Submit" value="Guardar" name="submit" class="btn btn-success ">
                        
                             <?php
-                                if($_SESSION["login"] ="Alumno"){
+                                if($_SESSION["login"]=="Alumno"){
                                     echo "<a href='../Index/IndexAlumno.php' class='btn btn-warning' style='margin-left:3px'>Regresar</a>";
                                 }else{
                                     echo "<a href='../Alumnos/listado_alumnos.php' class='btn btn-warning' style='margin-left:3px'>Regresar</a>";
@@ -93,14 +93,14 @@
                     if(isset($_POST["submit"])){
 
                         //verificar la conexion
-                        
+                        $conn=OpenCon();
                         if ($conn == null){
                             die("No se ha podido conectar con la base de datos :'( ");
                         }
 
                         if($_POST["nombre"]!="" && $_POST["apellido"]!="" && $_POST["fecha"]!="" ){
                            
-                            $sql = "UPDATE tblDocentes SET alumnoNombre='".$_POST["nombre"]."', alumnoApellido='".$_POST["apellido"]."', fechaNacimiento='".$_POST["fecha"]."', correo='".$_POST["correo"]."' WHERE id='".$_POST["id"]."'";
+                            $sql = "UPDATE tblAlumnos SET alumnoNombre='".$_POST["nombre"]."', alumnoApellido='".$_POST["apellido"]."', fechaNacimiento='".$_POST["fecha"]."', correo='".$_POST["correo"]."' WHERE idAlumno='".$_POST["id"]."'";
                             $codigo=$_POST["id"];        
                             $count = $conn->exec($sql);
                             if($count > 0){
