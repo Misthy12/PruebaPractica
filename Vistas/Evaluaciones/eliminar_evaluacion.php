@@ -11,11 +11,11 @@
         } 
         
         if(actividadRealizada($_GET['codigo'])==null){
-            $sth = $conn->prepare("DELETE FROM tblPreguntas WHERE tblPreguntas.idEvaluacion = ?");
+            $sth = $conn->prepare("DELETE FROM tblPreguntas WHERE idEvaluacion = ?");
             $sth->execute(array($_GET['codigo']));
             $count = $sth->rowCount();
 
-            $sthE = $conn->prepare("DELETE FROM tblEvaluaciones WHERE tblEvaluaciones.idEvaluacion = ?");
+            $sthE = $conn->prepare("DELETE FROM tblEvaluaciones WHERE idEvaluacion = ?");
             $sthE->execute(array($_GET['codigo']));
             $count += $sthE->rowCount();
 
