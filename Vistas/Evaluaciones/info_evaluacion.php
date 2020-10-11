@@ -71,7 +71,7 @@
                 </li>
             </ul>
          <div class="tab-content col-12" id="myTabContent">
-            <div class="tab-pane fade show " id="aprobadas" role="tabpanel" aria-labelledby="aprobadas-tab">
+            <div class="tab-pane fade show active" id="aprobadas" role="tabpanel" aria-labelledby="aprobadas-tab">
                 <div class="card card-body">
                     <?php
                             $conn =OpenCon();

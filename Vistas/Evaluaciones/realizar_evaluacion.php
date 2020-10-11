@@ -58,7 +58,9 @@ if (isset($_POST["btnEvaluacion"])) {
                 <!-- ======================= IMPRESION EVAL ==================================== -->
                 <hr>
                 <h5 class="text-justify font-italic"><b>INDICACIONES: </b><?php echo $rowe->indicaciones?></h5>
+                    
                 <hr>
+                    <form action="" method="post"></form>
                     <?PHP
                     $i = 1;
                     $stmm1 = "SELECT *from tblpreguntas where idEvaluacion = $rowe->idEvaluacion";
@@ -99,7 +101,10 @@ if (isset($_POST["btnEvaluacion"])) {
                         $i++;
                     }
                     ?>
+                        <hr>
 
+                        <input type="button" value=" Enviar " name="btnEnviar" id="btnEnviar" class="btn btn-success col-12">
+                    </form>
                 </div>
             </div>
         </div>
